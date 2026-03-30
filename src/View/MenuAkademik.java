@@ -75,6 +75,11 @@ public class MenuAkademik extends javax.swing.JFrame {
         mnuFile.setText("File");
 
         mnuMahasiswa.setText("Entry Data Mahasiswa");
+        mnuMahasiswa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMahasiswaActionPerformed(evt);
+            }
+        });
         mnuFile.add(mnuMahasiswa);
         mnuFile.add(jSeparator1);
 
@@ -155,6 +160,12 @@ public class MenuAkademik extends javax.swing.JFrame {
     private void mnuCetakMatakuliahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCetakMatakuliahActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mnuCetakMatakuliahActionPerformed
+
+    private void mnuMahasiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMahasiswaActionPerformed
+     View.FrmMahasiswa objMhs = new View.FrmMahasiswa();
+     objMhs.setLocationRelativeTo(this);
+     objMhs.setVisible(true);
+    }//GEN-LAST:event_mnuMahasiswaActionPerformed
 
     /**
      * @param args the command line arguments

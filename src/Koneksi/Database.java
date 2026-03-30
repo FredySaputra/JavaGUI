@@ -17,7 +17,7 @@ public class Database {
     public static Connection KoneksiDB(){
         if(conn==null){
             try{
-                Class.forName("com.mysql.jdbc.driver");
+                Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://localhost/db_akademik_2311500140","root","");
                 JOptionPane.showMessageDialog(null, "Koneksi Berhasil!","Pesan",JOptionPane.INFORMATION_MESSAGE);
             }
