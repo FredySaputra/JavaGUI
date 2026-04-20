@@ -5,6 +5,8 @@
  */
 package View;
 
+import Controller.Controller_Mahasiswa;
+import java.awt.event.KeyEvent;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -14,12 +16,16 @@ import javax.swing.JTextField;
  * @author Mahasiswa
  */
 public class FrmMahasiswa extends javax.swing.JFrame {
-
+    
+    Controller.Controller_Mahasiswa controller;
     /**
      * Creates new form frmMahasiswa
      */
     public FrmMahasiswa() {
         initComponents();
+        setLocationRelativeTo(this);
+        controller = new Controller_Mahasiswa(this);
+        controller.reset();
     }
 
     public JTable getTblMahasiswa() {
@@ -90,6 +96,14 @@ public class FrmMahasiswa extends javax.swing.JFrame {
                 txtNIMActionPerformed(evt);
             }
         });
+        txtNIM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNIMKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNIMKeyReleased(evt);
+            }
+        });
 
         txtNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,10 +123,25 @@ public class FrmMahasiswa extends javax.swing.JFrame {
         });
 
         cmdUbah.setText("Ubah");
+        cmdUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdUbahActionPerformed(evt);
+            }
+        });
 
         cmdHapus.setText("Hapus");
+        cmdHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdHapusActionPerformed(evt);
+            }
+        });
 
         cmdBatal.setText("Batal");
+        cmdBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBatalActionPerformed(evt);
+            }
+        });
 
         tblMahasiswa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,6 +154,11 @@ public class FrmMahasiswa extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblMahasiswa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMahasiswaMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblMahasiswa);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,12 +230,48 @@ public class FrmMahasiswa extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNIMActionPerformed
 
     private void cmdTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdTambahActionPerformed
-        // TODO add your handling code here:
+        controller.insert();
+        controller.reset();
     }//GEN-LAST:event_cmdTambahActionPerformed
 
     private void txtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNamaActionPerformed
+
+    private void cmdUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdUbahActionPerformed
+        controller.update();
+        controller.reset();
+    }//GEN-LAST:event_cmdUbahActionPerformed
+
+    private void cmdHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdHapusActionPerformed
+       controller.delete();
+       controller.reset();
+    }//GEN-LAST:event_cmdHapusActionPerformed
+
+    private void cmdBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBatalActionPerformed
+        controller.reset();
+    }//GEN-LAST:event_cmdBatalActionPerformed
+
+    private void tblMahasiswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMahasiswaMouseClicked
+        controller.isiField(tblMahasiswa.getSelectedRow());
+        this.txtNama.requestFocus();
+    }//GEN-LAST:event_tblMahasiswaMouseClicked
+
+    private void txtNIMKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNIMKeyReleased
+        controller.isiTabelCari();
+    }//GEN-LAST:event_txtNIMKeyReleased
+
+    private void txtNIMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNIMKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            if(txtNIM.getText().isEmpty()){
+                controller.reset();
+            }
+            else{
+                controller.isiTabelCari();
+                this.txtNama.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_txtNIMKeyPressed
 
     /**
      * @param args the command line arguments
