@@ -84,6 +84,16 @@ public class MenuAkademik extends javax.swing.JFrame {
         mnuFile.add(jSeparator1);
 
         mnuMatakuliah.setText("Entry Data Matakuliah");
+        mnuMatakuliah.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuMatakuliahMouseClicked(evt);
+            }
+        });
+        mnuMatakuliah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMatakuliahActionPerformed(evt);
+            }
+        });
         mnuFile.add(mnuMatakuliah);
         mnuFile.add(jSeparator2);
 
@@ -107,8 +117,18 @@ public class MenuAkademik extends javax.swing.JFrame {
         jMenuBar1.add(mnuFile);
 
         mnuTransaksi.setText("Transaksi");
+        mnuTransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuTransaksiActionPerformed(evt);
+            }
+        });
 
         mnuKRSS.setText("Entry Data KRSS");
+        mnuKRSS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuKRSSActionPerformed(evt);
+            }
+        });
         mnuTransaksi.add(mnuKRSS);
 
         jMenuBar1.add(mnuTransaksi);
@@ -150,7 +170,9 @@ public class MenuAkademik extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuPeriodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPeriodeActionPerformed
-        // TODO add your handling code here:
+        View.FrmPeriode objMhs = new View.FrmPeriode();
+        objMhs.setLocationRelativeTo(this);
+        objMhs.setVisible(true);
     }//GEN-LAST:event_mnuPeriodeActionPerformed
 
     private void mnuKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuKeluarActionPerformed
@@ -166,6 +188,26 @@ public class MenuAkademik extends javax.swing.JFrame {
      objMhs.setLocationRelativeTo(this);
      objMhs.setVisible(true);
     }//GEN-LAST:event_mnuMahasiswaActionPerformed
+
+    private void mnuMatakuliahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuMatakuliahMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuMatakuliahMouseClicked
+
+    private void mnuMatakuliahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMatakuliahActionPerformed
+    View.FrmMatakuliah objMhs = new View.FrmMatakuliah();
+     objMhs.setLocationRelativeTo(this);
+     objMhs.setVisible(true);
+    }//GEN-LAST:event_mnuMatakuliahActionPerformed
+
+    private void mnuTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTransaksiActionPerformed
+        
+    }//GEN-LAST:event_mnuTransaksiActionPerformed
+
+    private void mnuKRSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuKRSSActionPerformed
+        View.FrmKRSS objKRSS = new View.FrmKRSS();
+        objKRSS.setLocationRelativeTo(this);
+        objKRSS.setVisible(true);
+    }//GEN-LAST:event_mnuKRSSActionPerformed
 
     /**
      * @param args the command line arguments
