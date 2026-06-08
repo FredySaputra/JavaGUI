@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Documents/NetBeansProjects/SistemAkademik/src/View/MenuAkademik.java</file>
             <file>file:/D:/Documents/NetBeansProjects/SistemAkademik/src/View/FrmKRSS.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/SistemAkademik/src/DAO/DAO_Mahasiswa.java</file>
             <file>file:/D:/Documents/NetBeansProjects/SistemAkademik/src/Controller/Controller_KRSS.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/SistemAkademik/src/Model/varKRSS.java</file>
             <file>file:/D:/Documents/NetBeansProjects/SistemAkademik/src/DAO/DAO_KRSS.java</file>
         </group>
     </open-files>
