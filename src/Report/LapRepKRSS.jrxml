@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LapRepKRSS" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<style name="Title" fontName="Arial" fontSize="24" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="pNIM" class="java.lang.String"/>
+	<parameter name="pTA" class="java.lang.String"/>
+	<parameter name="pSemester" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT a.TA, a.Semester, a.NIM, b.Nama, c.KodeMTK, d.NamaMTK, d.SKS
+FROM krs a
+JOIN mahasiswa b ON a.NIM = b.NIM
+JOIN detil_krs c ON a.TA = c.TA AND a.Semester = c.Semester AND a.NIM = c.NIM
+JOIN matakuliah d ON c.KodeMTK = d.KodeMTK
+WHERE a.NIM = $P{pNIM} AND a.TA = $P{pTA} AND a.Semester = $P{pSemester}]]>
+	</queryString>
+	<field name="TA" class="java.lang.String"/>
+	<field name="Semester" class="java.lang.String"/>
+	<field name="NIM" class="java.lang.String"/>
+	<field name="Nama" class="java.lang.String"/>
+	<field name="KodeMTK" class="java.lang.String"/>
+	<field name="NamaMTK" class="java.lang.String"/>
+	<field name="SKS" class="java.lang.Integer"/>
+    <variable name="TotalSKS" class="java.lang.Integer" calculation="Sum">
+        <variableExpression><![CDATA[$F{SKS}]]></variableExpression>
+    </variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="120" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="0" width="555" height="33"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[KARTU RENCANA STUDI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="100" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="70" width="100" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="50" width="100" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TA / SEMESTER]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="50" width="150" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NIM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="70" width="150" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="50" width="145" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TA} + " / " + $F{Semester}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="100" y="50" width="10" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="70" width="10" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="50" width="10" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="100" height="15"/>
+				<textElement/>
+				<text><![CDATA[KODE MTK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="100" y="19" width="355" height="15"/>
+				<textElement/>
+				<text><![CDATA[NAMA MATAKULIAH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="455" y="19" width="100" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[SKS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="100" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{KodeMTK}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="100" y="0" width="355" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{NamaMTK}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="455" y="0" width="100" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{SKS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="355" y="10" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL SKS : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="10" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{TotalSKS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

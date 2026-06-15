@@ -136,6 +136,11 @@ public class MenuAkademik extends javax.swing.JFrame {
         jMenu5.setText("Laporan");
 
         mnuCetakMahasiswa.setText("Cetak Daftar Mahasiswa");
+        mnuCetakMahasiswa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCetakMahasiswaActionPerformed(evt);
+            }
+        });
         jMenu5.add(mnuCetakMahasiswa);
         jMenu5.add(jSeparator4);
 
@@ -149,6 +154,11 @@ public class MenuAkademik extends javax.swing.JFrame {
         jMenu5.add(jSeparator5);
 
         mnuCetakKRSS.setText("Cetak KRSS");
+        mnuCetakKRSS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCetakKRSSActionPerformed(evt);
+            }
+        });
         jMenu5.add(mnuCetakKRSS);
 
         jMenuBar1.add(jMenu5);
@@ -180,8 +190,22 @@ public class MenuAkademik extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuKeluarActionPerformed
 
     private void mnuCetakMatakuliahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCetakMatakuliahActionPerformed
-        // TODO add your handling code here:
+        View.FrmLapRepMtk objMtk = new View.FrmLapRepMtk();
+        objMtk.setLocationRelativeTo(this);
+        objMtk.setVisible(true);
     }//GEN-LAST:event_mnuCetakMatakuliahActionPerformed
+
+    private void mnuCetakMahasiswaActionPerformed(java.awt.event.ActionEvent evt) {
+        View.FrmLapRepMhs objMhs = new View.FrmLapRepMhs();
+        objMhs.setLocationRelativeTo(this);
+        objMhs.setVisible(true);
+    }
+
+    private void mnuCetakKRSSActionPerformed(java.awt.event.ActionEvent evt) {
+        View.FrmLapRepKRSS objKRSS = new View.FrmLapRepKRSS();
+        objKRSS.setLocationRelativeTo(this);
+        objKRSS.setVisible(true);
+    }
 
     private void mnuMahasiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMahasiswaActionPerformed
      View.FrmMahasiswa objMhs = new View.FrmMahasiswa();
