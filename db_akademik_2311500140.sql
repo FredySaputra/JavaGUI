@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2026 at 09:28 AM
+-- Generation Time: Jun 22, 2026 at 11:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,6 +49,53 @@ INSERT INTO `detil_krs` (`TA`, `Semester`, `NIM`, `KodeMTK`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dosen`
+--
+
+CREATE TABLE `dosen` (
+  `nip` varchar(20) NOT NULL,
+  `nama_dosen` varchar(100) DEFAULT NULL,
+  `no_hp` varchar(15) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dosen`
+--
+
+INSERT INTO `dosen` (`nip`, `nama_dosen`, `no_hp`) VALUES
+('10012 ', 'M. Anif', '0818849849 '),
+('10013', 'Yuliazmi', '0818766252 ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jadwal`
+--
+
+CREATE TABLE `jadwal` (
+  `id_jadwal` int(11) NOT NULL,
+  `TA` varchar(9) NOT NULL,
+  `Semester` varchar(8) NOT NULL,
+  `nip` varchar(20) NOT NULL,
+  `kode_ruang` varchar(10) NOT NULL,
+  `hari` varchar(10) NOT NULL,
+  `kode_sesi` int(11) NOT NULL,
+  `kode_sesi_selesai` int(11) NOT NULL,
+  `kode_mtk` char(5) NOT NULL,
+  `kelompok` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jadwal`
+--
+
+INSERT INTO `jadwal` (`id_jadwal`, `TA`, `Semester`, `nip`, `kode_ruang`, `hari`, `kode_sesi`, `kode_sesi_selesai`, `kode_mtk`, `kelompok`) VALUES
+(2, '2025-2026', 'GENAP', '10012', '211', 'Senin', 1, 3, 'KP001', 'AA'),
+(3, '2025-2026', 'GENAP', '10013', '211', 'Senin', 4, 6, 'KP061', 'AA');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `krs`
 --
 
@@ -87,7 +134,8 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`NIM`, `Nama`, `Alamat`) VALUES
-('2311500140', 'Fredy Dwi Saputra', 'Kebayoran Lama');
+('2311500140', 'Fredy Dwi Saputra', 'Kebayoran Lama'),
+('2311501918', 'Muhammad Rangga Junero', 'Adam Malik');
 
 -- --------------------------------------------------------
 
@@ -132,26 +180,6 @@ INSERT INTO `periode` (`TA`, `Semester`) VALUES
 ('2025-2026', 'GENAP'),
 ('2025-2026', 'REMEDIAL'),
 ('2026-2027', 'GASAL');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dosen`
---
-
-CREATE TABLE `dosen` (
-  `nip` varchar(20) NOT NULL,
-  `nama_dosen` varchar(100) DEFAULT NULL,
-  `no_hp` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `dosen`
---
-
-INSERT INTO `dosen` (`nip`, `nama_dosen`, `no_hp`) VALUES
-('10012 ', 'M. Anif', '0818849849 '),
-('10013', 'Yuliazmi', '0818766252 ');
 
 -- --------------------------------------------------------
 
@@ -217,6 +245,23 @@ ALTER TABLE `detil_krs`
   ADD PRIMARY KEY (`TA`,`Semester`,`NIM`,`KodeMTK`);
 
 --
+-- Indexes for table `dosen`
+--
+ALTER TABLE `dosen`
+  ADD PRIMARY KEY (`nip`);
+
+--
+-- Indexes for table `jadwal`
+--
+ALTER TABLE `jadwal`
+  ADD PRIMARY KEY (`id_jadwal`),
+  ADD KEY `nip` (`nip`),
+  ADD KEY `kode_ruang` (`kode_ruang`),
+  ADD KEY `kode_sesi` (`kode_sesi`),
+  ADD KEY `kode_mtk` (`kode_mtk`),
+  ADD KEY `fk_sesi_selesai` (`kode_sesi_selesai`);
+
+--
 -- Indexes for table `krs`
 --
 ALTER TABLE `krs`
@@ -241,12 +286,6 @@ ALTER TABLE `periode`
   ADD PRIMARY KEY (`TA`,`Semester`);
 
 --
--- Indexes for table `dosen`
---
-ALTER TABLE `dosen`
-  ADD PRIMARY KEY (`nip`);
-
---
 -- Indexes for table `ruang`
 --
 ALTER TABLE `ruang`
@@ -257,23 +296,32 @@ ALTER TABLE `ruang`
 --
 ALTER TABLE `sesi`
   ADD PRIMARY KEY (`kode_sesi`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `jadwal`
+--
+ALTER TABLE `jadwal`
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `jadwal`
+--
+ALTER TABLE `jadwal`
+  ADD CONSTRAINT `fk_sesi_selesai` FOREIGN KEY (`kode_sesi_selesai`) REFERENCES `sesi` (`kode_sesi`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `jadwal_ibfk_1` FOREIGN KEY (`nip`) REFERENCES `dosen` (`nip`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `jadwal_ibfk_2` FOREIGN KEY (`kode_ruang`) REFERENCES `ruang` (`kode_ruang`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `jadwal_ibfk_3` FOREIGN KEY (`kode_sesi`) REFERENCES `sesi` (`kode_sesi`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `jadwal_ibfk_4` FOREIGN KEY (`kode_mtk`) REFERENCES `matakuliah` (`KodeMTK`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-CREATE TABLE jadwal (
-    id_jadwal INT AUTO_INCREMENT PRIMARY KEY,
-    TA VARCHAR(9) NOT NULL,
-    Semester VARCHAR(8) NOT NULL,
-    nip VARCHAR(20) NOT NULL,
-    kode_ruang VARCHAR(10) NOT NULL,
-    hari VARCHAR(10) NOT NULL,
-    kode_sesi INT NOT NULL,
-    kode_mtk CHAR(5) NOT NULL,
-    kelompok VARCHAR(5) NOT NULL,
-    FOREIGN KEY (nip) REFERENCES dosen(nip) ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (kode_ruang) REFERENCES ruang(kode_ruang) ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (kode_sesi) REFERENCES sesi(kode_sesi) ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (kode_mtk) REFERENCES matakuliah(KodeMTK) ON UPDATE CASCADE ON DELETE RESTRICT
-);
