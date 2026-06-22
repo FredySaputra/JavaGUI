@@ -52,3 +52,8 @@ Buat `JFrame` baru dengan struktur berikut:
    Saat baris `tblJadwal` diklik (`MouseListener`), tangkap nilai `id_jadwal` ke dalam variabel kelas global (contoh: `int selectedId`). Gunakan `selectedId` ini pada klausa `WHERE id_jadwal = ?` saat mengeksekusi *PreparedStatement* untuk fungsi `Ubah` (UPDATE) dan `Hapus` (DELETE).
 3. **Validasi:**
    Cegah eksekusi `Tambah` atau `Ubah` jika `txtKelompok` kosong atau *ComboBox* belum dipilih.
+## 4. Catatan Perbaikan (Bug Fixes & Refactoring)
+1. **NetBeans GUI Builder Compatibility**: Event bindings (seperti ddActionListener, ddMouseListener, dll) telah diekstraksi ke *method* mandiri. Untuk menjamin kompabilitas kompilasi manual/ant tanpa membuka NetBeans GUI Builder, kode *event listener* di-*inject* secara terprogram tepat setelah initComponents() di *constructor* View.
+2. **Penghapusan Anonymous Inner Class**: Untuk menghindari error *NoClassDefFoundError* ($1.class, $2.class hilang) akibat proses kompilasi NetBeans yang gagal di tengah jalan (misal karena *JasperReports*), seluruh DefaultTableModel yang sebelumnya diinstansiasi secara *anonymous* telah diubah menjadi _named class_ (contoh: MyTableModel).
+3. **Trailing Spaces pada ComboBox**: Saat mengisi nilai pada komponen JComboBox dengan data dari database (setSelectedItem), fungsi *trim()* diimplementasikan agresif lewat metode bantu setComboItem() untuk menangkal karakter *trailing spaces* siluman dari tipe data VARCHAR/CHAR MySQL yang sering menyebabkan item gagal terseleksi (terutama NIP Dosen).
+
