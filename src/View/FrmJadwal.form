@@ -207,7 +207,17 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="520" y="85" width="150" height="25" />
+          <AbsoluteConstraints x="520" y="85" width="70" height="25" />
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtJamMulai">
+      <Properties>
+        <Property name="editable" type="boolean" value="false" />
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="600" y="85" width="70" height="25" />
         </Constraint>
       </Constraints>
     </Component>
@@ -256,5 +266,7 @@
         </Constraint>
       </Constraints>
     </Component>
-  <Component class="javax.swing.JTextField" name="txtJamSelesai"><Properties><Property name="editable" type="boolean" value="false" /></Properties><Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription"><AbsoluteConstraints x="520" y="120" width="150" height="25" /></Constraint></Constraints></Component></SubComponents>
+  <Component class="javax.swing.JTextField" name="txtJamSelesai"><Properties><Property name="editable" type="boolean" value="false" /></Properties><Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription"><AbsoluteConstraints x="600" y="120" width="70" height="25" /></Constraint></Constraints></Component>
+  <Component class="javax.swing.JTextField" name="txtSesiSelesai"><Properties><Property name="editable" type="boolean" value="false" /></Properties><Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription"><AbsoluteConstraints x="520" y="120" width="70" height="25" /></Constraint></Constraints></Component>
+</SubComponents>
 </Form>

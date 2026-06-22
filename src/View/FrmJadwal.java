@@ -43,6 +43,9 @@ public class FrmJadwal extends javax.swing.JFrame {
     public JTextField getTxtNamaMtk() { return txtNamaMtk; }
     public JTextField getTxtJamSelesai() { return txtJamSelesai; }
     public JTextField getTxtKelompok() { return txtKelompok; }
+    public JTextField getTxtJamMulai() { return txtJamMulai; }
+    public JTextField getTxtSesiSelesai() { return txtSesiSelesai; }
+    public JTextField getTxtSks() { return txtSks; }
 
     public JTable getTblJadwal() { return tblJadwal; }
 
@@ -71,6 +74,9 @@ public class FrmJadwal extends javax.swing.JFrame {
         txtNamaMtk = new javax.swing.JTextField();
         txtKelompok = new javax.swing.JTextField();
         txtJamSelesai = new javax.swing.JTextField();
+        txtJamMulai = new javax.swing.JTextField();
+        txtSesiSelesai = new javax.swing.JTextField();
+        txtSks = new javax.swing.JTextField();
         
         cmdTambah = new javax.swing.JButton();
         cmdUbah = new javax.swing.JButton();
@@ -96,6 +102,9 @@ public class FrmJadwal extends javax.swing.JFrame {
         txtNamaDosen.setEditable(false);
         txtNamaMtk.setEditable(false);
         txtJamSelesai.setEditable(false);
+        txtJamMulai.setEditable(false);
+        txtSesiSelesai.setEditable(false);
+        txtSks.setEditable(false);
 
         cbHari.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Pilih-", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu" }));
 
@@ -125,14 +134,18 @@ public class FrmJadwal extends javax.swing.JFrame {
         getContentPane().add(jLabel7);
         jLabel7.setBounds(12, 85, 80, 16);
         getContentPane().add(cbMtk);
-        cbMtk.setBounds(100, 85, 150, 25);
+        cbMtk.setBounds(100, 85, 80, 25);
         getContentPane().add(txtNamaMtk);
-        txtNamaMtk.setBounds(260, 85, 150, 25);
+        txtNamaMtk.setBounds(190, 85, 160, 25);
+        getContentPane().add(txtSks);
+        txtSks.setBounds(360, 85, 50, 25);
 
         getContentPane().add(jLabel5);
         jLabel5.setBounds(430, 85, 80, 16);
         getContentPane().add(cbSesi);
-        cbSesi.setBounds(520, 85, 150, 25);
+        cbSesi.setBounds(520, 85, 70, 25);
+        getContentPane().add(txtJamMulai);
+        txtJamMulai.setBounds(600, 85, 70, 25);
 
         getContentPane().add(jLabel8);
         jLabel8.setBounds(12, 120, 80, 16);
@@ -141,8 +154,10 @@ public class FrmJadwal extends javax.swing.JFrame {
 
         getContentPane().add(jLabel9);
         jLabel9.setBounds(430, 120, 80, 16);
+        getContentPane().add(txtSesiSelesai);
+        txtSesiSelesai.setBounds(520, 120, 70, 25);
         getContentPane().add(txtJamSelesai);
-        txtJamSelesai.setBounds(520, 120, 150, 25);
+        txtJamSelesai.setBounds(600, 120, 70, 25);
 
         getContentPane().add(jLabel6);
         jLabel6.setBounds(12, 155, 80, 16);
@@ -201,9 +216,12 @@ public class FrmJadwal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblJadwal;
     private javax.swing.JTextField txtJamSelesai;
+    private javax.swing.JTextField txtJamMulai;
+    private javax.swing.JTextField txtSesiSelesai;
     private javax.swing.JTextField txtKelompok;
     private javax.swing.JTextField txtNamaDosen;
     private javax.swing.JTextField txtNamaMtk;
+    private javax.swing.JTextField txtSks;
 
     private void cmdTambahActionPerformed(java.awt.event.ActionEvent evt) {
         if (controller != null) controller.insert();

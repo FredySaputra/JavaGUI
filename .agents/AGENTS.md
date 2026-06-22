@@ -1,66 +1,51 @@
-# Spesifikasi Teknis: Form Transaksi Jadwal Matakuliah & Refactoring Database
+# Spesifikasi Teknis & Panduan Pengembangan: Sistem Akademik
 
-## 1. Perubahan Struktur Database (PENTING)
-Sesuai instruksi, prefix `tb_` pada tabel master dihilangkan. Agen AI wajib menjalankan *query* berikut dan **MEMPERBARUI** semua sintaks SQL pada modul CRUD Java master yang sudah ada sebelumnya:
+Dokumen ini berisi panduan dan konvensi utama untuk proyek Sistem Akademik ini. Panduan ini mencerminkan state project saat ini dan wajib dipatuhi oleh Agen AI saat melakukan modifikasi atau penambahan fitur di masa mendatang.
 
-RENAME TABLE tb_dosen TO dosen;
-RENAME TABLE tb_ruang TO ruang;
-RENAME TABLE tb_sesi TO sesi;
+## 1. Lingkungan Pengembangan (Wajib Dipatuhi)
+* **IDE**: NetBeans IDE versi 8.2.
+* **JDK**: Java 8.
+* **Catatan Penting**: DILARANG mengubah versi Java atau IDE. Kode yang dihasilkan harus selalu kompatibel dengan Java 8 dan NetBeans 8.2 GUI Builder (`.form`).
 
-Tabel `jadwal` belum ada di dalam database. Agen AI wajib membuat tabel ini beserta relasinya, dan **HARUS** menyertakan `id_jadwal` (Auto Increment) sebagai *Primary Key* agar fungsi *Update* dan *Delete* pada aplikasi dapat berjalan tanpa bug:
+## 2. Arsitektur Proyek (MVC)
+Proyek ini menggunakan pola arsitektur **Model-View-Controller (MVC)** klasik dipadukan dengan pola **Data Access Object (DAO)**. 
 
-CREATE TABLE jadwal (
-    id_jadwal INT AUTO_INCREMENT PRIMARY KEY,
-    TA VARCHAR(9) NOT NULL,
-    Semester VARCHAR(8) NOT NULL,
-    nip VARCHAR(20) NOT NULL,
-    kode_ruang VARCHAR(10) NOT NULL,
-    hari VARCHAR(10) NOT NULL,
-    kode_sesi INT NOT NULL,
-    kode_mtk CHAR(5) NOT NULL,
-    kelompok VARCHAR(5) NOT NULL,
-    FOREIGN KEY (nip) REFERENCES dosen(nip) ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (kode_ruang) REFERENCES ruang(kode_ruang) ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (kode_sesi) REFERENCES sesi(kode_sesi) ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (kode_mtk) REFERENCES matakuliah(KodeMTK) ON UPDATE CASCADE ON DELETE RESTRICT
-);
+Struktur direktori pada `src/` terbagi menjadi:
+1. **`Model`**: Berisi kelas representasi entitas (POJO).
+   * Konvensi penamaan: `var<NamaEntitas>.java` (contoh: `varJadwal.java`, `varDosen.java`).
+2. **`DAO`**: Berisi kelas untuk operasi database (CRUD).
+   * Konvensi penamaan: `DAO_<NamaEntitas>.java` (contoh: `DAO_Jadwal.java`).
+   * Setiap DAO wajib mengimplementasikan interface `DAO_Interface<T>` yang memuat fungsi standar seperti `insert`, `update`, `delete`, `getAll`, dan `getCari`.
+3. **`Controller`**: Berisi kelas yang menghubungkan View dan DAO, serta mengelola logika bisnis.
+   * Konvensi penamaan: `Controller_<NamaEntitas>.java` (contoh: `Controller_Jadwal.java`).
+4. **`View`**: Berisi komponen antarmuka pengguna (GUI) berbasis Java Swing.
+   * Konvensi penamaan: `Frm<NamaEntitas>.java` beserta file form NetBeans `Frm<NamaEntitas>.form` (contoh: `FrmJadwal.java`).
 
+## 3. Konvensi Database
+* **Nama Database**: `db_akademik_2311500140`
+* Proyek telah melalui proses *refactoring* di mana prefiks `tb_` telah dihapus dari tabel master. Nama tabel saat ini antara lain: `dosen`, `ruang`, `sesi`, `matakuliah`, `mahasiswa`, dan `jadwal`.
+* **Tabel `jadwal`**: Memiliki *Primary Key* `id_jadwal` yang bersifat *Auto Increment*. Tabel ini juga menampung komputasi akhir sesi pada kolom `kode_sesi_selesai`.
 
-## 2. Kebutuhan Komponen UI (Form Transaksi Jadwal)
-Buat `JFrame` baru dengan struktur berikut:
-* **Dropdown (JComboBox):**
-    * `cbTA`: Memuat data `TA` (Gunakan `SELECT DISTINCT TA FROM periode WHERE TA != ''`).
-    * `cbSemester`: Memuat data `Semester` (Gunakan `SELECT DISTINCT Semester FROM periode WHERE Semester != ''`).
-    * `cbRuang`: Memuat data `kode_ruang` dari tabel `ruang`.
-    * `cbHari`: Hardcoded *Item* `["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]`.
-    * `cbSesi`: Memuat data `kode_sesi` dari tabel `sesi`.
-    * `cbDosen`: Memuat data `nip` dari tabel `dosen`.
-    * `cbMtk`: Memuat data `KodeMTK` dari tabel `matakuliah`.
-* **Input Teks (JTextField):**
-    * `txtNamaDosen`: (Read-Only / `setEditable(false)`).
-    * `txtNamaMtk`: (Read-Only / `setEditable(false)`).
-    * `txtKelompok`: Input teks reguler untuk mengetik kelompok kelas (misal: "AA").
-* **Tabel & Tombol Operasi:**
-    * `JTable tblJadwal`: Untuk menampilkan data jadwal. Kolom wajib: ID Jadwal (bisa disembunyikan *width* 0), TA, Semester, Ruang, Hari, Waktu (Gabungan jam_mulai - jam_selesai), Dosen, Matakuliah, Kelompok.
-    * `JButton`: Tambah, Ubah, Hapus, Bersih.
+### Skema Tabel Database Terkini:
+1. **`dosen`**: `nip` (varchar 20, PK), `nama_dosen` (varchar 100), `no_hp` (varchar 15).
+2. **`ruang`**: `kode_ruang` (varchar 10, PK), `keterangan` (text).
+3. **`sesi`**: `kode_sesi` (int 11, PK), `jam_mulai` (varchar 5), `jam_selesai` (varchar 5).
+4. **`matakuliah`**: `KodeMTK` (char 5, PK), `NamaMTK` (varchar 50), `SKS` (int 11), `KodePrasyarat` (char 5).
+5. **`mahasiswa`**: `NIM` (char 10, PK), `Nama` (varchar 50), `Alamat` (varchar 200).
+6. **`periode`**: `TA` (varchar 9, PK), `Semester` (varchar 8, PK).
+7. **`krs`**: `TA` (varchar 9, PK), `Semester` (varchar 8, PK), `NIM` (char 10, PK), `TglKRS` (date).
+8. **`detil_krs`**: `TA` (varchar 9, PK), `Semester` (varchar 8, PK), `NIM` (char 10, PK), `KodeMTK` (char 5, PK).
+9. **`jadwal`**: `id_jadwal` (int 11, PK, Auto Increment), `TA` (varchar 9), `Semester` (varchar 8), `nip` (varchar 20, FK), `kode_ruang` (varchar 10, FK), `hari` (varchar 10), `kode_sesi` (int 11, FK), `kode_sesi_selesai` (int 11, FK), `kode_mtk` (char 5, FK), `kelompok` (varchar 5).
 
-## 3. Logika Program (Event Handlers)
-1. **Auto-Fill Data Master (Wajib):**
-   Tambahkan `ItemListener` atau `ActionListener` pada `cbDosen`. Ketika NIP dipilih, jalankan *query* `SELECT nama_dosen FROM dosen WHERE nip = ?` dan masukkan ke `txtNamaDosen`. 
-   Lakukan hal serupa pada `cbMtk`: ambil `NamaMTK` dari tabel `matakuliah` dan masukkan ke `txtNamaMtk`.
-2. **CRUD Operasi dengan ID Spesifik:**
-   Saat baris `tblJadwal` diklik (`MouseListener`), tangkap nilai `id_jadwal` ke dalam variabel kelas global (contoh: `int selectedId`). Gunakan `selectedId` ini pada klausa `WHERE id_jadwal = ?` saat mengeksekusi *PreparedStatement* untuk fungsi `Ubah` (UPDATE) dan `Hapus` (DELETE).
-3. **Validasi:**
-   Cegah eksekusi `Tambah` atau `Ubah` jika `txtKelompok` kosong atau *ComboBox* belum dipilih.
-## 4. Catatan Perbaikan (Bug Fixes & Refactoring)
-1. **NetBeans GUI Builder Compatibility**: Event bindings (seperti ddActionListener, ddMouseListener, dll) telah diekstraksi ke *method* mandiri. Untuk menjamin kompabilitas kompilasi manual/ant tanpa membuka NetBeans GUI Builder, kode *event listener* di-*inject* secara terprogram tepat setelah initComponents() di *constructor* View.
-2. **Penghapusan Anonymous Inner Class**: Untuk menghindari error *NoClassDefFoundError* ($1.class, $2.class hilang) akibat proses kompilasi NetBeans yang gagal di tengah jalan (misal karena *JasperReports*), seluruh DefaultTableModel yang sebelumnya diinstansiasi secara *anonymous* telah diubah menjadi _named class_ (contoh: MyTableModel).
-3. **Trailing Spaces pada ComboBox**: Saat mengisi nilai pada komponen JComboBox dengan data dari database (setSelectedItem), fungsi *trim()* diimplementasikan agresif lewat metode bantu setComboItem() untuk menangkal karakter *trailing spaces* siluman dari tipe data VARCHAR/CHAR MySQL yang sering menyebabkan item gagal terseleksi (terutama NIP Dosen).
-
-
-## 5. Fitur Jadwal Lanjutan (Validasi & Layout)
-1. **Perubahan Skema**: Tabel jadwal ditambahkan kolom kode_sesi_selesai untuk menampung batas akhir sesi berdasarkan SKS.
-2. **Perhitungan Otomatis**: Ketika Matakuliah dan Sesi Mulai dipilih, sistem otomatis menghitung Sesi Selesai (kode_sesi_mulai + SKS - 1) dan menampilkannya pada kolom read-only \	xtJamSelesai\.
-3. **Validasi Real-time Bentrok Jadwal**: Diterapkan \ItemStateChangeListener\ pada semua ComboBox (TA, Semester, Ruang, Hari, Sesi, Dosen, Mtk) untuk menjalankan validasi secara instan (\ealTimeValidation\). Jika rentang sesi bertabrakan dengan jadwal existing di ruang atau dosen yang sama pada hari yang sama, akan muncul \JOptionPane\ peringatan.
-4. **Refactoring UI**: Tata letak vertikal (GroupLayout) dirombak total menjadi AbsoluteLayout (2 kolom horizontal) di \FrmJadwal.java\ agar form lebih proporsional.
-
+## 4. Standar Kode & Antarmuka Pengguna (GUI)
+1. **Kompatibilitas NetBeans GUI Builder**: 
+   Penyuntingan komponen UI sebaiknya tetap mempertahankan kompatibilitas dengan file `.form`. Untuk logika event (seperti *ActionListener*, *MouseListener*, *ItemListener*), implementasinya di-*inject* secara terprogram tepat setelah `initComponents()` pada konstruktor *View* agar terhindar dari konflik *code generation* bawaan NetBeans.
+2. **Penanganan `DefaultTableModel`**:
+   Dilarang menggunakan *anonymous inner class* untuk model tabel. Gunakan *named class* (kelas dengan nama yang jelas) untuk mencegah *error* `NoClassDefFoundError` ($1.class hilang) saat proses kompilasi NetBeans gagal di tengah jalan (misalnya saat membangun JasperReports).
+3. **Penanganan Karakter Spasi (Trailing Spaces)**:
+   Data yang diambil dari MySQL bertipe `CHAR` atau `VARCHAR` terkadang memiliki spasi ekstra di akhir string. Wajib menerapkan fungsi `.trim()` secara agresif, khususnya saat memuat dan mencocokkan nilai ke dalam komponen `JComboBox` agar item tidak gagal terseleksi (terutama NIP Dosen / Kode entitas lainnya).
+4. **Validasi & Interaksi Pengguna (Khusus Transaksi/Jadwal)**:
+   * Event `ItemStateChangeListener` sering digunakan pada `JComboBox` untuk validasi bentrok (*real-time validation*) dan kalkulasi otomatis (contoh: perhitungan jam selesai).
+   * Nilai kunci baris seperti `id_jadwal` atau id *primary* lainnya di tabel Swing sering disimpan secara tersembunyi (width = 0) atau disimpan dalam variabel level kelas saat baris diklik (`MouseListener`).
+5. **Layouts**: Layout kompleks seperti form transaksi jadwal menggunakan `AbsoluteLayout` (seringkali dibantu script *refactoring* eksternal) untuk membagi porsi form agar lebih responsif dan proporsional. Hindari pemakaian `GroupLayout` yang kaku jika dibutuhkan form yang fleksibel.
+6. **Pembaruan Terbaru Form Transaksi Jadwal**: Terdapat ekstensi field untuk detail sesi (meliputi `txtJamMulai`, `txtSesiSelesai`, dan `txtJamSelesai`) serta field khusus detail matakuliah (`txtSks` dengan teks berakhiran " SKS"). Logika pengisian field ini dikelola di dalam `Controller_Jadwal.java` (seperti pada metode `calculateJamSelesai()` dan `fetchNamaMtk()`), sedangkan posisi/lebar komponen diperbarui di file `.form` NetBeans dan `FrmJadwal.java` secara sinkron agar teks tidak terpotong.

@@ -151,12 +151,16 @@ public class Controller_Jadwal {
                 if(rs.next()) {
                     form.getTxtNamaMtk().setText(rs.getString("NamaMTK"));
                     selectedSks = rs.getInt("SKS");
+                    if(form.getTxtSks() != null) form.getTxtSks().setText(selectedSks + " SKS");
+                } else {
+                    if(form.getTxtSks() != null) form.getTxtSks().setText("");
                 }
             } catch(Exception e) {
                 e.printStackTrace();
             }
         } else {
             form.getTxtNamaMtk().setText("");
+            if(form.getTxtSks() != null) form.getTxtSks().setText("");
         }
         calculateJamSelesai();
         realTimeValidation();
@@ -164,28 +168,52 @@ public class Controller_Jadwal {
     
     public void calculateJamSelesai() {
         calculatedSesiSelesai = -1;
-        if (form.getCbSesi() != null && form.getTxtJamSelesai() != null) {
-            if(form.getCbSesi().getSelectedIndex() > 0 && selectedSks > 0) {
+        if (form.getCbSesi() != null && form.getTxtJamSelesai() != null && form.getTxtJamMulai() != null && form.getTxtSesiSelesai() != null) {
+            if(form.getCbSesi().getSelectedIndex() > 0) {
+                int sesiMulai = Integer.parseInt(form.getCbSesi().getSelectedItem().toString().trim());
+                
                 try {
-                    int sesiMulai = Integer.parseInt(form.getCbSesi().getSelectedItem().toString().trim());
-                    calculatedSesiSelesai = sesiMulai + selectedSks - 1;
-                    
-                    // Fetch jam selesai for calculatedSesiSelesai
-                    PreparedStatement st = conn.prepareStatement("SELECT jam_selesai FROM sesi WHERE kode_sesi = ?");
-                    st.setInt(1, calculatedSesiSelesai);
-                    ResultSet rs = st.executeQuery();
-                    if(rs.next()) {
-                        String jamSelesai = rs.getString("jam_selesai");
-                        form.getTxtJamSelesai().setText("Sesi " + calculatedSesiSelesai + " (" + jamSelesai + ")");
+                    PreparedStatement stM = conn.prepareStatement("SELECT jam_mulai FROM sesi WHERE kode_sesi = ?");
+                    stM.setInt(1, sesiMulai);
+                    ResultSet rsM = stM.executeQuery();
+                    if(rsM.next()) {
+                        form.getTxtJamMulai().setText(rsM.getString("jam_mulai"));
                     } else {
-                        form.getTxtJamSelesai().setText("Sesi Selesai (" + calculatedSesiSelesai + ") tidak valid/tidak ada di tabel sesi!");
-                        calculatedSesiSelesai = -1; // invalid
+                        form.getTxtJamMulai().setText("");
                     }
                 } catch(Exception e) {
-                    form.getTxtJamSelesai().setText("");
+                    form.getTxtJamMulai().setText("");
                     e.printStackTrace();
                 }
+
+                if (selectedSks > 0) {
+                    try {
+                        calculatedSesiSelesai = sesiMulai + selectedSks - 1;
+                        
+                        PreparedStatement st = conn.prepareStatement("SELECT jam_selesai FROM sesi WHERE kode_sesi = ?");
+                        st.setInt(1, calculatedSesiSelesai);
+                        ResultSet rs = st.executeQuery();
+                        if(rs.next()) {
+                            String jamSelesai = rs.getString("jam_selesai");
+                            form.getTxtSesiSelesai().setText(String.valueOf(calculatedSesiSelesai));
+                            form.getTxtJamSelesai().setText(jamSelesai);
+                        } else {
+                            form.getTxtSesiSelesai().setText("Err");
+                            form.getTxtJamSelesai().setText("Err");
+                            calculatedSesiSelesai = -1; // invalid
+                        }
+                    } catch(Exception e) {
+                        form.getTxtSesiSelesai().setText("");
+                        form.getTxtJamSelesai().setText("");
+                        e.printStackTrace();
+                    }
+                } else {
+                    form.getTxtSesiSelesai().setText("");
+                    form.getTxtJamSelesai().setText("");
+                }
             } else {
+                form.getTxtJamMulai().setText("");
+                form.getTxtSesiSelesai().setText("");
                 form.getTxtJamSelesai().setText("");
             }
         }
@@ -207,6 +235,7 @@ public class Controller_Jadwal {
         form.getTxtNamaMtk().setText(list.get(row).getNamaMtk());
         
         selectedSks = list.get(row).getSks();
+        if(form.getTxtSks() != null) form.getTxtSks().setText(selectedSks + " SKS");
         calculateJamSelesai();
         realTimeValidation();
     }
@@ -237,6 +266,9 @@ public class Controller_Jadwal {
         form.getTxtNamaMtk().setText("");
         form.getTxtKelompok().setText("");
         if(form.getTxtJamSelesai() != null) form.getTxtJamSelesai().setText("");
+        if(form.getTxtJamMulai() != null) form.getTxtJamMulai().setText("");
+        if(form.getTxtSesiSelesai() != null) form.getTxtSesiSelesai().setText("");
+        if(form.getTxtSks() != null) form.getTxtSks().setText("");
         isiTabel();
     }
     
