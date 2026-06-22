@@ -21,6 +21,16 @@ public class FrmKRSS extends javax.swing.JFrame {
      */
     public FrmKRSS() {
         initComponents();
+        /* CUSTOM_BINDINGS_START */
+        if(txtKdMtk != null) txtKdMtk.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtKdMtkActionPerformed(evt); } });
+        if(cmdTambah != null) cmdTambah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdTambahActionPerformed(evt); } });
+        if(cmdHapus != null) cmdHapus.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdHapusActionPerformed(evt); } });
+        if(cmdBatal != null) cmdBatal.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdBatalActionPerformed(evt); } });
+        if(cmdSelesai != null) cmdSelesai.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdSelesaiActionPerformed(evt); } });
+        if(txtNIM != null) txtNIM.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtNIMActionPerformed(evt); } });
+        if(txtNama != null) txtNama.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtNamaActionPerformed(evt); } });
+        if(tblKRS != null) tblKRS.addMouseListener(new java.awt.event.MouseAdapter() { public void mouseClicked(java.awt.event.MouseEvent evt) { tblKRSMouseClicked(evt); } });
+        /* CUSTOM_BINDINGS_END */
         setLocationRelativeTo(this);
         controller = new Controller_KRSS(this);
         controller.reset();

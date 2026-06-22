@@ -16,6 +16,22 @@ public class MenuAkademik extends javax.swing.JFrame {
      */
     public MenuAkademik() {
         initComponents();
+        /* CUSTOM_BINDINGS_START */
+        if(mnuPeriode != null) mnuPeriode.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuPeriodeActionPerformed(evt); } });
+        if(mnuKeluar != null) mnuKeluar.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuKeluarActionPerformed(evt); } });
+        if(mnuCetakMatakuliah != null) mnuCetakMatakuliah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuCetakMatakuliahActionPerformed(evt); } });
+        if(mnuCetakMahasiswa != null) mnuCetakMahasiswa.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuCetakMahasiswaActionPerformed(evt); } });
+        if(mnuCetakKRSS != null) mnuCetakKRSS.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuCetakKRSSActionPerformed(evt); } });
+        if(mnuMahasiswa != null) mnuMahasiswa.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuMahasiswaActionPerformed(evt); } });
+        if(mnuMatakuliah != null) mnuMatakuliah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuMatakuliahActionPerformed(evt); } });
+        if(mnuTransaksi != null) mnuTransaksi.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuTransaksiActionPerformed(evt); } });
+        if(mnuKRSS != null) mnuKRSS.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuKRSSActionPerformed(evt); } });
+        if(mnuJadwal != null) mnuJadwal.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuJadwalActionPerformed(evt); } });
+        if(mnuSesi != null) mnuSesi.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuSesiActionPerformed(evt); } });
+        if(mnuDosen != null) mnuDosen.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuDosenActionPerformed(evt); } });
+        if(mnuRuang != null) mnuRuang.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { mnuRuangActionPerformed(evt); } });
+        if(mnuMatakuliah != null) mnuMatakuliah.addMouseListener(new java.awt.event.MouseAdapter() { public void mouseClicked(java.awt.event.MouseEvent evt) { mnuMatakuliahMouseClicked(evt); } });
+        /* CUSTOM_BINDINGS_END */
         setTitle("Sistem Akademik Universitas Budi Luhur");
         setSize(1000, 600);
         setLocationRelativeTo(this);
@@ -106,6 +122,36 @@ public class MenuAkademik extends javax.swing.JFrame {
         mnuFile.add(mnuPeriode);
         mnuFile.add(jSeparator3);
 
+        mnuSesi = new javax.swing.JMenuItem();
+        mnuSesi.setText("Entry Data Sesi");
+        mnuSesi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSesiActionPerformed(evt);
+            }
+        });
+        mnuFile.add(mnuSesi);
+        mnuFile.add(new javax.swing.JPopupMenu.Separator());
+
+        mnuDosen = new javax.swing.JMenuItem();
+        mnuDosen.setText("Entry Data Dosen");
+        mnuDosen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuDosenActionPerformed(evt);
+            }
+        });
+        mnuFile.add(mnuDosen);
+        mnuFile.add(new javax.swing.JPopupMenu.Separator());
+
+        mnuRuang = new javax.swing.JMenuItem();
+        mnuRuang.setText("Entry Data Kelas (Ruang)");
+        mnuRuang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuRuangActionPerformed(evt);
+            }
+        });
+        mnuFile.add(mnuRuang);
+        mnuFile.add(new javax.swing.JPopupMenu.Separator());
+
         mnuKeluar.setText("Keluar");
         mnuKeluar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +176,15 @@ public class MenuAkademik extends javax.swing.JFrame {
             }
         });
         mnuTransaksi.add(mnuKRSS);
+
+        mnuJadwal = new javax.swing.JMenuItem();
+        mnuJadwal.setText("Entry Jadwal Matakuliah");
+        mnuJadwal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuJadwalActionPerformed(evt);
+            }
+        });
+        mnuTransaksi.add(mnuJadwal);
 
         jMenuBar1.add(mnuTransaksi);
 
@@ -233,6 +288,50 @@ public class MenuAkademik extends javax.swing.JFrame {
         objKRSS.setVisible(true);
     }//GEN-LAST:event_mnuKRSSActionPerformed
 
+    private void mnuJadwalActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            View.FrmJadwal objJadwal = new View.FrmJadwal();
+            objJadwal.setLocationRelativeTo(this);
+            objJadwal.setVisible(true);
+        } catch (Throwable t) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + t.toString());
+            t.printStackTrace();
+        }
+    }
+
+    private void mnuSesiActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            View.FrmSesi objSesi = new View.FrmSesi();
+            objSesi.setLocationRelativeTo(this);
+            objSesi.setVisible(true);
+        } catch (Throwable t) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + t.toString());
+            t.printStackTrace();
+        }
+    }
+
+    private void mnuDosenActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            View.FrmDosen objDosen = new View.FrmDosen();
+            objDosen.setLocationRelativeTo(this);
+            objDosen.setVisible(true);
+        } catch (Throwable t) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + t.toString());
+            t.printStackTrace();
+        }
+    }
+
+    private void mnuRuangActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            View.FrmRuang objRuang = new View.FrmRuang();
+            objRuang.setLocationRelativeTo(this);
+            objRuang.setVisible(true);
+        } catch (Throwable t) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + t.toString());
+            t.printStackTrace();
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -293,5 +392,9 @@ public class MenuAkademik extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuMatakuliah;
     private javax.swing.JMenuItem mnuPeriode;
     private javax.swing.JMenu mnuTransaksi;
+    private javax.swing.JMenuItem mnuSesi;
+    private javax.swing.JMenuItem mnuDosen;
+    private javax.swing.JMenuItem mnuRuang;
+    private javax.swing.JMenuItem mnuJadwal;
     // End of variables declaration//GEN-END:variables
 }

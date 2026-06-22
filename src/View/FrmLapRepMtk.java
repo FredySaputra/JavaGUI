@@ -8,6 +8,10 @@ public class FrmLapRepMtk extends javax.swing.JFrame {
 
     public FrmLapRepMtk() {
         initComponents();
+        /* CUSTOM_BINDINGS_START */
+        if(cmdpreview != null) cmdpreview.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdpreviewActionPerformed(evt); } });
+        if(cmdexcel != null) cmdexcel.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdexcelActionPerformed(evt); } });
+        /* CUSTOM_BINDINGS_END */
         controller = new Controller_LapRepMtk();
     }
 

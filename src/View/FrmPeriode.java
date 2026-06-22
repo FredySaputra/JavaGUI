@@ -23,6 +23,17 @@ public class FrmPeriode extends javax.swing.JFrame {
      */
     public FrmPeriode() {
         initComponents();
+        /* CUSTOM_BINDINGS_START */
+        if(txtTA != null) txtTA.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtTAActionPerformed(evt); } });
+        if(cmdTambah != null) cmdTambah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdTambahActionPerformed(evt); } });
+        if(cmdUbah != null) cmdUbah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdUbahActionPerformed(evt); } });
+        if(cmdHapus != null) cmdHapus.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdHapusActionPerformed(evt); } });
+        if(cmdBatal != null) cmdBatal.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdBatalActionPerformed(evt); } });
+        if(txtSemester != null) txtSemester.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtSemesterActionPerformed(evt); } });
+        if(tblPeriode != null) tblPeriode.addMouseListener(new java.awt.event.MouseAdapter() { public void mouseClicked(java.awt.event.MouseEvent evt) { tblPeriodeMouseClicked(evt); } });
+        if(txtTA != null) txtTA.addKeyListener(new java.awt.event.KeyAdapter() { public void keyReleased(java.awt.event.KeyEvent evt) { txtTAKeyReleased(evt); } });
+        if(txtTA != null) txtTA.addKeyListener(new java.awt.event.KeyAdapter() { public void keyPressed(java.awt.event.KeyEvent evt) { txtTAKeyPressed(evt); } });
+        /* CUSTOM_BINDINGS_END */
         setLocationRelativeTo(this);
         controller = new Controller_Periode(this);
         controller.reset();

@@ -73,11 +73,7 @@ public class Controller_KRSS {
         String semester = ""+form.getCboSemester().getSelectedItem();
         String nim = form.getTxtNIM().getText();
         list = model_internal.getAllDetilKRS(ta, semester, nim);
-        DefaultTableModel tblModel = new DefaultTableModel(new Object[][]{},header){
-            public boolean isCellEditable(int rowIndex,int columnIndex){
-                return false;
-            }
-        };
+        DefaultTableModel tblModel = new DefaultTableModel(new Object[][]{}, header) { public boolean isCellEditable(int rowIndex, int columnIndex) { return false; } };
         Object[] data = new Object[header.length];
         int i=1;
         for(varKRSS objKRSS:list){

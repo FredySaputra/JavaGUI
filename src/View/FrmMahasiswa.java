@@ -23,6 +23,17 @@ public class FrmMahasiswa extends javax.swing.JFrame {
      */
     public FrmMahasiswa() {
         initComponents();
+        /* CUSTOM_BINDINGS_START */
+        if(txtNIM != null) txtNIM.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtNIMActionPerformed(evt); } });
+        if(cmdTambah != null) cmdTambah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdTambahActionPerformed(evt); } });
+        if(txtNama != null) txtNama.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtNamaActionPerformed(evt); } });
+        if(cmdUbah != null) cmdUbah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdUbahActionPerformed(evt); } });
+        if(cmdHapus != null) cmdHapus.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdHapusActionPerformed(evt); } });
+        if(cmdBatal != null) cmdBatal.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdBatalActionPerformed(evt); } });
+        if(tblMahasiswa != null) tblMahasiswa.addMouseListener(new java.awt.event.MouseAdapter() { public void mouseClicked(java.awt.event.MouseEvent evt) { tblMahasiswaMouseClicked(evt); } });
+        if(txtNIM != null) txtNIM.addKeyListener(new java.awt.event.KeyAdapter() { public void keyReleased(java.awt.event.KeyEvent evt) { txtNIMKeyReleased(evt); } });
+        if(txtNIM != null) txtNIM.addKeyListener(new java.awt.event.KeyAdapter() { public void keyPressed(java.awt.event.KeyEvent evt) { txtNIMKeyPressed(evt); } });
+        /* CUSTOM_BINDINGS_END */
         setLocationRelativeTo(this);
         controller = new Controller_Mahasiswa(this);
         controller.reset();

@@ -23,6 +23,21 @@ public class FrmMatakuliah extends javax.swing.JFrame {
      */
     public FrmMatakuliah() {
         initComponents();
+        /* CUSTOM_BINDINGS_START */
+        if(txtKodeMTK != null) txtKodeMTK.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtKodeMTKActionPerformed(evt); } });
+        if(cmdTambah != null) cmdTambah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdTambahActionPerformed(evt); } });
+        if(txtNamaMTK != null) txtNamaMTK.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtNamaMTKActionPerformed(evt); } });
+        if(cmdUbah != null) cmdUbah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdUbahActionPerformed(evt); } });
+        if(cmdHapus != null) cmdHapus.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdHapusActionPerformed(evt); } });
+        if(cmdBatal != null) cmdBatal.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdBatalActionPerformed(evt); } });
+        if(txtSKS != null) txtSKS.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtSKSActionPerformed(evt); } });
+        if(txtKodePrasyarat != null) txtKodePrasyarat.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtKodePrasyaratActionPerformed(evt); } });
+        if(tblMatakuliah != null) tblMatakuliah.addMouseListener(new java.awt.event.MouseAdapter() { public void mouseClicked(java.awt.event.MouseEvent evt) { tblMatakuliahMouseClicked(evt); } });
+        if(txtKodeMTK != null) txtKodeMTK.addKeyListener(new java.awt.event.KeyAdapter() { public void keyReleased(java.awt.event.KeyEvent evt) { txtKodeMTKKeyReleased(evt); } });
+        if(txtSKS != null) txtSKS.addKeyListener(new java.awt.event.KeyAdapter() { public void keyReleased(java.awt.event.KeyEvent evt) { txtSKSKeyReleased(evt); } });
+        if(txtKodeMTK != null) txtKodeMTK.addKeyListener(new java.awt.event.KeyAdapter() { public void keyPressed(java.awt.event.KeyEvent evt) { txtKodeMTKKeyPressed(evt); } });
+        if(txtSKS != null) txtSKS.addKeyListener(new java.awt.event.KeyAdapter() { public void keyPressed(java.awt.event.KeyEvent evt) { txtSKSKeyPressed(evt); } });
+        /* CUSTOM_BINDINGS_END */
         setLocationRelativeTo(this);
         controller = new Controller_Matakuliah(this);
         controller.reset();

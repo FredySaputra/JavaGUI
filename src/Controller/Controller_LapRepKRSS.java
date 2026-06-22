@@ -17,6 +17,17 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
+
+class MyTableModelLapRepKRSS extends javax.swing.table.DefaultTableModel {
+    public MyTableModelLapRepKRSS(Object[][] data, Object[] columnNames) {
+        super(data, columnNames);
+    }
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return false;
+    }
+}
+
 public class Controller_LapRepKRSS {
     
     DAO_KRSS model_internal;

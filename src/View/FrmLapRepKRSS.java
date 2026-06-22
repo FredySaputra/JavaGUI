@@ -8,6 +8,11 @@ public class FrmLapRepKRSS extends javax.swing.JFrame {
 
     public FrmLapRepKRSS() {
         initComponents();
+        /* CUSTOM_BINDINGS_START */
+        if(txtNIM != null) txtNIM.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtNIMActionPerformed(evt); } });
+        if(cmdpreview != null) cmdpreview.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdpreviewActionPerformed(evt); } });
+        if(cmdexcel != null) cmdexcel.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdexcelActionPerformed(evt); } });
+        /* CUSTOM_BINDINGS_END */
         controller = new Controller_LapRepKRSS();
         controller.isicomboTahunAjaran(cboTA);
         controller.isicomboSemester(cboSemester);

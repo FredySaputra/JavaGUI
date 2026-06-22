@@ -36,11 +36,7 @@ public class Controller_Periode {
     
     public void isiTabel(){
         list = model.getAll();
-        DefaultTableModel tblModel = new DefaultTableModel(new Object[][]{},header){
-        public boolean isCellEditable(int rowIndex,int columnIndex){
-            return false;
-        }
-    };
+        DefaultTableModel tblModel = new DefaultTableModel(new Object[][]{}, header) { public boolean isCellEditable(int rowIndex, int columnIndex) { return false; } };
         Object[] data = new Object[header.length];
         for(varPeriode objMhs : list){
             data[0] = objMhs.getVTA();
