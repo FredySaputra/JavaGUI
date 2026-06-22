@@ -15,11 +15,11 @@ public class DAO_Jadwal implements DAO_Interface<varJadwal> {
         conn = Koneksi.Database.KoneksiDB();
     }
     
-    String INSERT = "insert into jadwal(TA, Semester, nip, kode_ruang, hari, kode_sesi, kode_mtk, kelompok) values(?,?,?,?,?,?,?,?)";
-    String UPDATE = "update jadwal set TA=?, Semester=?, nip=?, kode_ruang=?, hari=?, kode_sesi=?, kode_mtk=?, kelompok=? where id_jadwal=?";
+    String INSERT = "insert into jadwal(TA, Semester, nip, kode_ruang, hari, kode_sesi, kode_sesi_selesai, kode_mtk, kelompok) values(?,?,?,?,?,?,?,?,?)";
+    String UPDATE = "update jadwal set TA=?, Semester=?, nip=?, kode_ruang=?, hari=?, kode_sesi=?, kode_sesi_selesai=?, kode_mtk=?, kelompok=? where id_jadwal=?";
     String DELETE = "delete from jadwal where id_jadwal=?";
-    String SelectUntukGetAll = "SELECT j.*, d.nama_dosen, m.NamaMTK, CONCAT(s.jam_mulai, ' - ', s.jam_selesai) AS waktu FROM jadwal j LEFT JOIN dosen d ON j.nip = d.nip LEFT JOIN matakuliah m ON j.kode_mtk = m.KodeMTK LEFT JOIN sesi s ON j.kode_sesi = s.kode_sesi";
-    String SelectUntukGetCari = "SELECT j.*, d.nama_dosen, m.NamaMTK, CONCAT(s.jam_mulai, ' - ', s.jam_selesai) AS waktu FROM jadwal j LEFT JOIN dosen d ON j.nip = d.nip LEFT JOIN matakuliah m ON j.kode_mtk = m.KodeMTK LEFT JOIN sesi s ON j.kode_sesi = s.kode_sesi WHERE j.TA like ? OR j.Semester like ?";
+    String SelectUntukGetAll = "SELECT j.*, d.nama_dosen, m.NamaMTK, m.SKS, CONCAT('Sesi ', j.kode_sesi, ' - ', j.kode_sesi_selesai, ' (', s.jam_mulai, ' - ', s2.jam_selesai, ')') AS waktu FROM jadwal j LEFT JOIN dosen d ON j.nip = d.nip LEFT JOIN matakuliah m ON j.kode_mtk = m.KodeMTK LEFT JOIN sesi s ON j.kode_sesi = s.kode_sesi LEFT JOIN sesi s2 ON j.kode_sesi_selesai = s2.kode_sesi";
+    String SelectUntukGetCari = "SELECT j.*, d.nama_dosen, m.NamaMTK, m.SKS, CONCAT('Sesi ', j.kode_sesi, ' - ', j.kode_sesi_selesai, ' (', s.jam_mulai, ' - ', s2.jam_selesai, ')') AS waktu FROM jadwal j LEFT JOIN dosen d ON j.nip = d.nip LEFT JOIN matakuliah m ON j.kode_mtk = m.KodeMTK LEFT JOIN sesi s ON j.kode_sesi = s.kode_sesi LEFT JOIN sesi s2 ON j.kode_sesi_selesai = s2.kode_sesi WHERE j.TA like ? OR j.Semester like ?";
     
     @Override
     public void insert(varJadwal Object) {
@@ -31,8 +31,9 @@ public class DAO_Jadwal implements DAO_Interface<varJadwal> {
             st.setString(4, Object.getKodeRuang());
             st.setString(5, Object.getHari());
             st.setInt(6, Object.getKodeSesi());
-            st.setString(7, Object.getKodeMtk());
-            st.setString(8, Object.getKelompok());
+            st.setInt(7, Object.getKodeSesiSelesai());
+            st.setString(8, Object.getKodeMtk());
+            st.setString(9, Object.getKelompok());
             st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Data Baru berhasil disimpan");
         } catch(Exception e) {
@@ -50,9 +51,10 @@ public class DAO_Jadwal implements DAO_Interface<varJadwal> {
             st.setString(4, Object.getKodeRuang());
             st.setString(5, Object.getHari());
             st.setInt(6, Object.getKodeSesi());
-            st.setString(7, Object.getKodeMtk());
-            st.setString(8, Object.getKelompok());
-            st.setInt(9, Object.getIdJadwal());
+            st.setInt(7, Object.getKodeSesiSelesai());
+            st.setString(8, Object.getKodeMtk());
+            st.setString(9, Object.getKelompok());
+            st.setInt(10, Object.getIdJadwal());
             st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Data berhasil diubah");
         } catch(Exception e) {
@@ -87,7 +89,9 @@ public class DAO_Jadwal implements DAO_Interface<varJadwal> {
                 obj.setKodeRuang(rs.getString("kode_ruang"));
                 obj.setHari(rs.getString("hari"));
                 obj.setKodeSesi(rs.getInt("kode_sesi"));
+                obj.setKodeSesiSelesai(rs.getInt("kode_sesi_selesai"));
                 obj.setKodeMtk(rs.getString("kode_mtk"));
+                obj.setSks(rs.getInt("SKS"));
                 obj.setKelompok(rs.getString("kelompok"));
                 obj.setNamaDosen(rs.getString("nama_dosen"));
                 obj.setNamaMtk(rs.getString("NamaMTK"));
@@ -117,7 +121,9 @@ public class DAO_Jadwal implements DAO_Interface<varJadwal> {
                 obj.setKodeRuang(rs.getString("kode_ruang"));
                 obj.setHari(rs.getString("hari"));
                 obj.setKodeSesi(rs.getInt("kode_sesi"));
+                obj.setKodeSesiSelesai(rs.getInt("kode_sesi_selesai"));
                 obj.setKodeMtk(rs.getString("kode_mtk"));
+                obj.setSks(rs.getInt("SKS"));
                 obj.setKelompok(rs.getString("kelompok"));
                 obj.setNamaDosen(rs.getString("nama_dosen"));
                 obj.setNamaMtk(rs.getString("NamaMTK"));

@@ -8,13 +8,16 @@ public class varJadwal {
     private String kodeRuang;
     private String hari;
     private int kodeSesi;
+    private int kodeSesiSelesai;
     private String kodeMtk;
     private String kelompok;
     
-    // For display purposes
+    // For display only
     private String namaDosen;
     private String namaMtk;
     private String waktu;
+    private String waktuSelesai;
+    private int sks;
 
     public int getIdJadwal() { return idJadwal; }
     public void setIdJadwal(int idJadwal) { this.idJadwal = idJadwal; }
@@ -36,6 +39,9 @@ public class varJadwal {
 
     public int getKodeSesi() { return kodeSesi; }
     public void setKodeSesi(int kodeSesi) { this.kodeSesi = kodeSesi; }
+    
+    public int getKodeSesiSelesai() { return kodeSesiSelesai; }
+    public void setKodeSesiSelesai(int kodeSesiSelesai) { this.kodeSesiSelesai = kodeSesiSelesai; }
 
     public String getKodeMtk() { return kodeMtk; }
     public void setKodeMtk(String kodeMtk) { this.kodeMtk = kodeMtk; }
@@ -51,4 +57,10 @@ public class varJadwal {
 
     public String getWaktu() { return waktu; }
     public void setWaktu(String waktu) { this.waktu = waktu; }
+    
+    public String getWaktuSelesai() { return waktuSelesai; }
+    public void setWaktuSelesai(String waktuSelesai) { this.waktuSelesai = waktuSelesai; }
+
+    public int getSks() { return sks; }
+    public void setSks(int sks) { this.sks = sks; }
 }

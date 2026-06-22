@@ -57,3 +57,10 @@ Buat `JFrame` baru dengan struktur berikut:
 2. **Penghapusan Anonymous Inner Class**: Untuk menghindari error *NoClassDefFoundError* ($1.class, $2.class hilang) akibat proses kompilasi NetBeans yang gagal di tengah jalan (misal karena *JasperReports*), seluruh DefaultTableModel yang sebelumnya diinstansiasi secara *anonymous* telah diubah menjadi _named class_ (contoh: MyTableModel).
 3. **Trailing Spaces pada ComboBox**: Saat mengisi nilai pada komponen JComboBox dengan data dari database (setSelectedItem), fungsi *trim()* diimplementasikan agresif lewat metode bantu setComboItem() untuk menangkal karakter *trailing spaces* siluman dari tipe data VARCHAR/CHAR MySQL yang sering menyebabkan item gagal terseleksi (terutama NIP Dosen).
 
+
+## 5. Fitur Jadwal Lanjutan (Validasi & Layout)
+1. **Perubahan Skema**: Tabel jadwal ditambahkan kolom kode_sesi_selesai untuk menampung batas akhir sesi berdasarkan SKS.
+2. **Perhitungan Otomatis**: Ketika Matakuliah dan Sesi Mulai dipilih, sistem otomatis menghitung Sesi Selesai (kode_sesi_mulai + SKS - 1) dan menampilkannya pada kolom read-only \	xtJamSelesai\.
+3. **Validasi Real-time Bentrok Jadwal**: Diterapkan \ItemStateChangeListener\ pada semua ComboBox (TA, Semester, Ruang, Hari, Sesi, Dosen, Mtk) untuk menjalankan validasi secara instan (\ealTimeValidation\). Jika rentang sesi bertabrakan dengan jadwal existing di ruang atau dosen yang sama pada hari yang sama, akan muncul \JOptionPane\ peringatan.
+4. **Refactoring UI**: Tata letak vertikal (GroupLayout) dirombak total menjadi AbsoluteLayout (2 kolom horizontal) di \FrmJadwal.java\ agar form lebih proporsional.
+

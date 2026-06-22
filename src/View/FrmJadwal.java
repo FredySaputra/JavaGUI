@@ -19,6 +19,11 @@ public class FrmJadwal extends javax.swing.JFrame {
         if(tblJadwal != null) tblJadwal.addMouseListener(new java.awt.event.MouseAdapter() { public void mouseClicked(java.awt.event.MouseEvent evt) { tblJadwalMouseClicked(evt); } });
         if(cbDosen != null) cbDosen.addItemListener(new java.awt.event.ItemListener() { public void itemStateChanged(java.awt.event.ItemEvent evt) { cbDosenItemStateChanged(evt); } });
         if(cbMtk != null) cbMtk.addItemListener(new java.awt.event.ItemListener() { public void itemStateChanged(java.awt.event.ItemEvent evt) { cbMtkItemStateChanged(evt); } });
+        if(cbSesi != null) cbSesi.addItemListener(new java.awt.event.ItemListener() { public void itemStateChanged(java.awt.event.ItemEvent evt) { cbSesiItemStateChanged(evt); } });
+        if(cbTA != null) cbTA.addItemListener(new java.awt.event.ItemListener() { public void itemStateChanged(java.awt.event.ItemEvent evt) { cbTAItemStateChanged(evt); } });
+        if(cbSemester != null) cbSemester.addItemListener(new java.awt.event.ItemListener() { public void itemStateChanged(java.awt.event.ItemEvent evt) { cbSemesterItemStateChanged(evt); } });
+        if(cbRuang != null) cbRuang.addItemListener(new java.awt.event.ItemListener() { public void itemStateChanged(java.awt.event.ItemEvent evt) { cbRuangItemStateChanged(evt); } });
+        if(cbHari != null) cbHari.addItemListener(new java.awt.event.ItemListener() { public void itemStateChanged(java.awt.event.ItemEvent evt) { cbHariItemStateChanged(evt); } });
         /* CUSTOM_BINDINGS_END */
         setLocationRelativeTo(this);
         controller = new Controller_Jadwal(this);
@@ -36,6 +41,7 @@ public class FrmJadwal extends javax.swing.JFrame {
 
     public JTextField getTxtNamaDosen() { return txtNamaDosen; }
     public JTextField getTxtNamaMtk() { return txtNamaMtk; }
+    public JTextField getTxtJamSelesai() { return txtJamSelesai; }
     public JTextField getTxtKelompok() { return txtKelompok; }
 
     public JTable getTblJadwal() { return tblJadwal; }
@@ -51,6 +57,7 @@ public class FrmJadwal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         
         cbTA = new javax.swing.JComboBox<>();
         cbSemester = new javax.swing.JComboBox<>();
@@ -63,6 +70,7 @@ public class FrmJadwal extends javax.swing.JFrame {
         txtNamaDosen = new javax.swing.JTextField();
         txtNamaMtk = new javax.swing.JTextField();
         txtKelompok = new javax.swing.JTextField();
+        txtJamSelesai = new javax.swing.JTextField();
         
         cmdTambah = new javax.swing.JButton();
         cmdUbah = new javax.swing.JButton();
@@ -79,134 +87,92 @@ public class FrmJadwal extends javax.swing.JFrame {
         jLabel2.setText("Semester");
         jLabel3.setText("Ruang");
         jLabel4.setText("Hari");
-        jLabel5.setText("Sesi");
+        jLabel5.setText("Sesi Mulai");
         jLabel6.setText("Dosen");
         jLabel7.setText("Matakuliah");
         jLabel8.setText("Kelompok");
+        jLabel9.setText("Sesi Selesai");
 
         txtNamaDosen.setEditable(false);
         txtNamaMtk.setEditable(false);
+        txtJamSelesai.setEditable(false);
 
         cbHari.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Pilih-", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu" }));
 
-        
+        getContentPane().setLayout(null);
+
+        // Add components and set bounds
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(12, 15, 80, 16);
+        getContentPane().add(cbTA);
+        cbTA.setBounds(100, 15, 150, 25);
+
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(430, 15, 80, 16);
+        getContentPane().add(cbRuang);
+        cbRuang.setBounds(520, 15, 150, 25);
+
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(12, 50, 80, 16);
+        getContentPane().add(cbSemester);
+        cbSemester.setBounds(100, 50, 150, 25);
+
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(430, 50, 80, 16);
+        getContentPane().add(cbHari);
+        cbHari.setBounds(520, 50, 150, 25);
+
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(12, 85, 80, 16);
+        getContentPane().add(cbMtk);
+        cbMtk.setBounds(100, 85, 150, 25);
+        getContentPane().add(txtNamaMtk);
+        txtNamaMtk.setBounds(260, 85, 150, 25);
+
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(430, 85, 80, 16);
+        getContentPane().add(cbSesi);
+        cbSesi.setBounds(520, 85, 150, 25);
+
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(12, 120, 80, 16);
+        getContentPane().add(txtKelompok);
+        txtKelompok.setBounds(100, 120, 150, 25);
+
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(430, 120, 80, 16);
+        getContentPane().add(txtJamSelesai);
+        txtJamSelesai.setBounds(520, 120, 150, 25);
+
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(12, 155, 80, 16);
+        getContentPane().add(cbDosen);
+        cbDosen.setBounds(100, 155, 150, 25);
+        getContentPane().add(txtNamaDosen);
+        txtNamaDosen.setBounds(260, 155, 250, 25);
 
         
-
         cmdTambah.setText("Tambah");
-        
-
         cmdUbah.setText("Ubah");
-        
-
         cmdHapus.setText("Hapus");
-        
-
         cmdBersih.setText("Bersih");
-        
-
-        tblJadwal.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {},
-            new String [] {
-                "ID Jadwal", "TA", "Semester", "Ruang", "Hari", "Waktu", "Dosen", "Matakuliah", "Kelompok"
-            }
-        ));
-        
         jScrollPane1.setViewportView(tblJadwal);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        getContentPane().add(cmdTambah);
+        cmdTambah.setBounds(100, 200, 80, 26);
+        getContentPane().add(cmdUbah);
+        cmdUbah.setBounds(190, 200, 80, 26);
+        getContentPane().add(cmdHapus);
+        cmdHapus.setBounds(280, 200, 80, 26);
+        getContentPane().add(cmdBersih);
+        cmdBersih.setBounds(370, 200, 80, 26);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(12, 250, 750, 250);
         
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cmdTambah)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmdUbah)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmdHapus)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmdBersih))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbTA, 0, 150, Short.MAX_VALUE)
-                                    .addComponent(cbSemester, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbRuang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbHari, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbSesi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbDosen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbMtk, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtKelompok))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNamaDosen, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                                    .addComponent(txtNamaMtk))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cbTA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cbSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cbRuang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cbHari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(cbSesi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cbDosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNamaDosen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(cbMtk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNamaMtk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtKelompok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmdTambah)
-                    .addComponent(cmdUbah)
-                    .addComponent(cmdHapus)
-                    .addComponent(cmdBersih))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        setPreferredSize(new java.awt.Dimension(800, 560));
+        setSize(800, 560);
+
 
         pack();
     }
@@ -231,8 +197,10 @@ public class FrmJadwal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblJadwal;
+    private javax.swing.JTextField txtJamSelesai;
     private javax.swing.JTextField txtKelompok;
     private javax.swing.JTextField txtNamaDosen;
     private javax.swing.JTextField txtNamaMtk;
@@ -252,6 +220,35 @@ public class FrmJadwal extends javax.swing.JFrame {
     private void cbDosenItemStateChanged(java.awt.event.ItemEvent evt) {
         if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
             if (controller != null) controller.fetchNamaDosen();
+        }
+    }
+    private void cbSesiItemStateChanged(java.awt.event.ItemEvent evt) {
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            if (controller != null) controller.calculateJamSelesai();
+        }
+    }
+    
+    private void cbTAItemStateChanged(java.awt.event.ItemEvent evt) {
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            if (controller != null) controller.realTimeValidation();
+        }
+    }
+    
+    private void cbSemesterItemStateChanged(java.awt.event.ItemEvent evt) {
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            if (controller != null) controller.realTimeValidation();
+        }
+    }
+    
+    private void cbRuangItemStateChanged(java.awt.event.ItemEvent evt) {
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            if (controller != null) controller.realTimeValidation();
+        }
+    }
+    
+    private void cbHariItemStateChanged(java.awt.event.ItemEvent evt) {
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            if (controller != null) controller.realTimeValidation();
         }
     }
     private void cbMtkItemStateChanged(java.awt.event.ItemEvent evt) {

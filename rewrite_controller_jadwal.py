@@ -1,4 +1,6 @@
-package Controller;
+import os
+
+java_code = """package Controller;
 
 import DAO.DAO_Jadwal;
 import Model.varJadwal;
@@ -159,7 +161,6 @@ public class Controller_Jadwal {
             form.getTxtNamaMtk().setText("");
         }
         calculateJamSelesai();
-        realTimeValidation();
     }
     
     public void calculateJamSelesai() {
@@ -189,7 +190,6 @@ public class Controller_Jadwal {
                 form.getTxtJamSelesai().setText("");
             }
         }
-        realTimeValidation();
     }
     
     public void isiField(int row) {
@@ -208,7 +208,6 @@ public class Controller_Jadwal {
         
         selectedSks = list.get(row).getSks();
         calculateJamSelesai();
-        realTimeValidation();
     }
 
     private void setComboItem(javax.swing.JComboBox<String> combo, String value) {
@@ -238,21 +237,6 @@ public class Controller_Jadwal {
         form.getTxtKelompok().setText("");
         if(form.getTxtJamSelesai() != null) form.getTxtJamSelesai().setText("");
         isiTabel();
-    }
-    
-    
-    public void realTimeValidation() {
-        if(!isValidInput()) return;
-        
-        String ta = form.getCbTA().getSelectedItem().toString();
-        String sem = form.getCbSemester().getSelectedItem().toString();
-        String ruang = form.getCbRuang().getSelectedItem().toString().trim();
-        String hari = form.getCbHari().getSelectedItem().toString();
-        int sesi = Integer.parseInt(form.getCbSesi().getSelectedItem().toString().trim());
-        String nip = form.getCbDosen().getSelectedItem().toString().trim();
-        
-        // Let checkConflict show the pane if there's a conflict
-        checkConflict(ta, sem, ruang, hari, sesi, calculatedSesiSelesai, nip, selectedId);
     }
     
     public boolean isValidInput() {
@@ -397,3 +381,7 @@ public class Controller_Jadwal {
         }
     }
 }
+"""
+
+with open('src/Controller/Controller_Jadwal.java', 'w', encoding='utf-8') as f:
+    f.write(java_code)
