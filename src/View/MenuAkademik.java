@@ -186,6 +186,16 @@ public class MenuAkademik extends javax.swing.JFrame {
         });
         mnuTransaksi.add(mnuJadwal);
 
+        mnuKPRS = new javax.swing.JMenuItem();
+        mnuKPRS.setText("Entri data KPRS");
+        mnuKPRS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuKPRSActionPerformed(evt);
+            }
+        });
+        mnuTransaksi.add(mnuKPRS);
+
+
         jMenuBar1.add(mnuTransaksi);
 
         jMenu5.setText("Laporan");
@@ -299,6 +309,10 @@ public class MenuAkademik extends javax.swing.JFrame {
         }
     }
 
+    private void mnuKPRSActionPerformed(java.awt.event.ActionEvent evt) {
+        new FrmKPRS().setVisible(true);
+    }
+
     private void mnuSesiActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             View.FrmSesi objSesi = new View.FrmSesi();
@@ -396,5 +410,6 @@ public class MenuAkademik extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuDosen;
     private javax.swing.JMenuItem mnuRuang;
     private javax.swing.JMenuItem mnuJadwal;
+    private javax.swing.JMenuItem mnuKPRS;
     // End of variables declaration//GEN-END:variables
 }

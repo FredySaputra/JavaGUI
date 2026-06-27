@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2026 at 11:30 AM
+-- Generation Time: Jun 27, 2026 at 05:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `detil_kprs`
+--
+
+CREATE TABLE `detil_kprs` (
+  `TA` varchar(9) NOT NULL,
+  `Semester` varchar(8) NOT NULL,
+  `NIM` char(10) NOT NULL,
+  `KodeMTK` char(5) NOT NULL,
+  `kelompok` varchar(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `detil_kprs`
+--
+
+INSERT INTO `detil_kprs` (`TA`, `Semester`, `NIM`, `KodeMTK`, `kelompok`) VALUES
+('2025-2026', 'GASAL', '2311500140', 'KP001', ''),
+('2025-2026', 'GASAL', '2311500140', 'KP002', ''),
+('2025-2026', 'GENAP', '2311500140', 'KP001', 'AA'),
+('2025-2026', 'GENAP', '2311500140', 'KP002', ''),
+('2025-2026', 'GENAP', '2311500140', 'KP061', 'AA');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `detil_krs`
 --
 
@@ -39,12 +64,16 @@ CREATE TABLE `detil_krs` (
 --
 
 INSERT INTO `detil_krs` (`TA`, `Semester`, `NIM`, `KodeMTK`) VALUES
+('-Pilih-', '-Pilih-', '2311500140', 'KP001'),
+('-Pilih-', '-Pilih-', '2311500140', 'KP002'),
 ('2025-2026', 'GASAL', '2311500111', 'KP001'),
 ('2025-2026', 'GASAL', '2311500111', 'KP061'),
 ('2025-2026', 'GASAL', '2311500140', 'KP001'),
 ('2025-2026', 'GASAL', '2311500140', 'KP002'),
+('2025-2026', 'GENAP', '2311500140', ''),
 ('2025-2026', 'GENAP', '2311500140', 'KP001'),
-('2025-2026', 'GENAP', '2311500140', 'KP002');
+('2025-2026', 'GENAP', '2311500140', 'KP002'),
+('2025-2026', 'GENAP', '2311500140', 'KP061');
 
 -- --------------------------------------------------------
 
@@ -91,7 +120,30 @@ CREATE TABLE `jadwal` (
 
 INSERT INTO `jadwal` (`id_jadwal`, `TA`, `Semester`, `nip`, `kode_ruang`, `hari`, `kode_sesi`, `kode_sesi_selesai`, `kode_mtk`, `kelompok`) VALUES
 (2, '2025-2026', 'GENAP', '10012', '211', 'Senin', 1, 3, 'KP001', 'AA'),
-(3, '2025-2026', 'GENAP', '10013', '211', 'Senin', 4, 6, 'KP061', 'AA');
+(3, '2025-2026', 'GENAP', '10013', '211', 'Senin', 4, 6, 'KP061', 'AA'),
+(4, '2025-2026', 'GENAP', '10012', '431', 'Jumat', 1, 3, 'KP002', 'AB'),
+(6, '2025-2026', 'GENAP', '10013', '431', 'Senin', 1, 3, 'KP061', 'AB');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kprs`
+--
+
+CREATE TABLE `kprs` (
+  `TA` varchar(9) NOT NULL,
+  `Semester` varchar(8) NOT NULL,
+  `NIM` char(10) NOT NULL,
+  `TglKPRS` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kprs`
+--
+
+INSERT INTO `kprs` (`TA`, `Semester`, `NIM`, `TglKPRS`) VALUES
+('2025-2026', 'GASAL', '2311500140', '2026-06-27'),
+('2025-2026', 'GENAP', '2311500140', '2026-06-27');
 
 -- --------------------------------------------------------
 
@@ -115,7 +167,7 @@ INSERT INTO `krs` (`TA`, `Semester`, `NIM`, `TglKRS`) VALUES
 ('2025-2026', 'GASAL', '2311500111', '2026-03-09'),
 ('2025-2026', 'GASAL', '2311500140', '2026-05-25'),
 ('2025-2026', 'GENAP', '2311500111', '2026-08-14'),
-('2025-2026', 'GENAP', '2311500140', '2026-05-25');
+('2025-2026', 'GENAP', '2311500140', '2026-06-27');
 
 -- --------------------------------------------------------
 
@@ -239,6 +291,13 @@ INSERT INTO `sesi` (`kode_sesi`, `jam_mulai`, `jam_selesai`) VALUES
 --
 
 --
+-- Indexes for table `detil_kprs`
+--
+ALTER TABLE `detil_kprs`
+  ADD PRIMARY KEY (`TA`,`Semester`,`NIM`,`KodeMTK`),
+  ADD KEY `fk_dkprs_mtk` (`KodeMTK`);
+
+--
 -- Indexes for table `detil_krs`
 --
 ALTER TABLE `detil_krs`
@@ -260,6 +319,13 @@ ALTER TABLE `jadwal`
   ADD KEY `kode_sesi` (`kode_sesi`),
   ADD KEY `kode_mtk` (`kode_mtk`),
   ADD KEY `fk_sesi_selesai` (`kode_sesi_selesai`);
+
+--
+-- Indexes for table `kprs`
+--
+ALTER TABLE `kprs`
+  ADD PRIMARY KEY (`TA`,`Semester`,`NIM`),
+  ADD KEY `fk_kprs_mhs` (`NIM`);
 
 --
 -- Indexes for table `krs`
@@ -305,11 +371,18 @@ ALTER TABLE `sesi`
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `detil_kprs`
+--
+ALTER TABLE `detil_kprs`
+  ADD CONSTRAINT `fk_dkprs_kprs` FOREIGN KEY (`TA`,`Semester`,`NIM`) REFERENCES `kprs` (`TA`, `Semester`, `NIM`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_dkprs_mtk` FOREIGN KEY (`KodeMTK`) REFERENCES `matakuliah` (`KodeMTK`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `jadwal`
@@ -320,6 +393,12 @@ ALTER TABLE `jadwal`
   ADD CONSTRAINT `jadwal_ibfk_2` FOREIGN KEY (`kode_ruang`) REFERENCES `ruang` (`kode_ruang`) ON UPDATE CASCADE,
   ADD CONSTRAINT `jadwal_ibfk_3` FOREIGN KEY (`kode_sesi`) REFERENCES `sesi` (`kode_sesi`) ON UPDATE CASCADE,
   ADD CONSTRAINT `jadwal_ibfk_4` FOREIGN KEY (`kode_mtk`) REFERENCES `matakuliah` (`KodeMTK`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `kprs`
+--
+ALTER TABLE `kprs`
+  ADD CONSTRAINT `fk_kprs_mhs` FOREIGN KEY (`NIM`) REFERENCES `mahasiswa` (`NIM`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
