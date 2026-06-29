@@ -1,3 +1,0 @@
-Controller.Controller_Dosen
-Controller.MyTableModel
-Controller.MyTableModelDosen

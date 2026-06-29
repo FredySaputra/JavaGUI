@@ -1,3 +1,6 @@
+//NIM       : 2311500140
+//Nama      : Fredy Dwi Saputra
+//No. Absen : 7
 package View;
 
 import Controller.Controller_Jadwal;
@@ -50,7 +53,7 @@ public class FrmJadwal extends javax.swing.JFrame {
     public JTable getTblJadwal() { return tblJadwal; }
 
     @SuppressWarnings("unchecked")
-    //GEN-BEGIN:initComponents
+//GEN-BEGIN:initComponents
     private void initComponents() {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -191,7 +194,7 @@ public class FrmJadwal extends javax.swing.JFrame {
 
         pack();
     }
-    //GEN-END:initComponents
+//GEN-END:initComponents
 
     private javax.swing.JComboBox<String> cbDosen;
     private javax.swing.JComboBox<String> cbHari;

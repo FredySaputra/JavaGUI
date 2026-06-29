@@ -1,3 +1,6 @@
+//NIM       : 2311500140
+//Nama      : Fredy Dwi Saputra
+//No. Absen : 7
 package View;
 
 import Controller.Controller_Ruang;
@@ -30,7 +33,7 @@ public class FrmRuang extends javax.swing.JFrame {
     public JTextArea getTxtKeterangan() { return txtKeterangan; }
 
     @SuppressWarnings("unchecked")
-    //GEN-BEGIN:initComponents
+//GEN-BEGIN:initComponents
     private void initComponents() {
         lblKode = new javax.swing.JLabel();
         lblKeterangan = new javax.swing.JLabel();
@@ -128,7 +131,7 @@ public class FrmRuang extends javax.swing.JFrame {
         );
         pack();
     }
-    //GEN-END:initComponents
+//GEN-END:initComponents
 
     private javax.swing.JButton cmdBersih;
     private javax.swing.JButton cmdHapus;

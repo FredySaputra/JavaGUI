@@ -1,8 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//NIM       : 2311500140
+//Nama      : Fredy Dwi Saputra
+//No. Absen : 7
 package Controller;
 
 import DAO.DAO_Interface;
@@ -34,9 +32,19 @@ public class Controller_Periode {
         form.getTblPeriode().setGridColor(Color.BLUE);
     }
     
+    private class NonEditableTableModel extends DefaultTableModel {
+        public NonEditableTableModel(Object[][] data, Object[] columnNames) {
+            super(data, columnNames);
+        }
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return false;
+        }
+    }
+
     public void isiTabel(){
         list = model.getAll();
-        DefaultTableModel tblModel = new DefaultTableModel(new Object[][]{}, header) { public boolean isCellEditable(int rowIndex, int columnIndex) { return false; } };
+        NonEditableTableModel tblModel = new NonEditableTableModel(new Object[][]{}, header);
         Object[] data = new Object[header.length];
         for(varPeriode objMhs : list){
             data[0] = objMhs.getVTA();
@@ -51,6 +59,17 @@ public class Controller_Periode {
         form.getTxtSemester().setText(list.get(row).getVSemester());
     }
     
+    public void cariData() {
+        if (list != null && !list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getVTA().equalsIgnoreCase(form.getTxtTA().getText().trim())) {
+                    isiField(i);
+                    break;
+                }
+            }
+        }
+    }
+
     public void reset(){
         form.getTxtTA().setText("");
         form.getTxtSemester().setText("");
@@ -60,21 +79,21 @@ public class Controller_Periode {
     
     public void insert(){
         varPeriode objMhs = new varPeriode();
-        objMhs.setVTA(form.getTxtTA().getText());
-        objMhs.setVSemester(form.getTxtSemester().getText());
+        objMhs.setVTA(form.getTxtTA().getText().trim());
+        objMhs.setVSemester(form.getTxtSemester().getText().trim());
         model.insert(objMhs);
     }
     
     public void update(){
         varPeriode objMhs = new varPeriode();
-        objMhs.setVTA(form.getTxtTA().getText());
-        objMhs.setVSemester(form.getTxtSemester().getText());
+        objMhs.setVTA(form.getTxtTA().getText().trim());
+        objMhs.setVSemester(form.getTxtSemester().getText().trim());
         model.update(objMhs);
     }
     
     public void delete(){
         if(!form.getTxtSemester().getText().trim().isEmpty()){
-            String TA = form.getTxtTA().getText();
+            String TA = form.getTxtTA().getText().trim();
             model.delete(TA);
         }
         else{
@@ -84,7 +103,7 @@ public class Controller_Periode {
     
     public void isiTabelCari(){
         list = model.getCari(form.getTxtTA().getText().trim());
-        DefaultTableModel tblModel = new DefaultTableModel(new Object[][]{},header);
+        NonEditableTableModel tblModel = new NonEditableTableModel(new Object[][]{},header);
         Object[] data = new Object[header.length];
         for(varPeriode objMhs : list){
             data[0] = objMhs.getVTA();

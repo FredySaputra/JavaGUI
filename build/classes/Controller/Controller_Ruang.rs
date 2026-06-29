@@ -1,2 +1,0 @@
-Controller.MyTableModelRuang
-Controller.Controller_Ruang

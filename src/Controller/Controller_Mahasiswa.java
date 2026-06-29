@@ -1,8 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//NIM       : 2311500140
+//Nama      : Fredy Dwi Saputra
+//No. Absen : 7
 package Controller;
 
 import DAO.DAO_Interface;
@@ -34,9 +32,19 @@ public class Controller_Mahasiswa {
         form.getTblMahasiswa().setGridColor(Color.BLUE);
     }
     
+    private class NonEditableTableModel extends DefaultTableModel {
+        public NonEditableTableModel(Object[][] data, Object[] columnNames) {
+            super(data, columnNames);
+        }
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return false;
+        }
+    }
+
     public void isiTabel(){
         list = model.getAll();
-        DefaultTableModel tblModel = new DefaultTableModel(new Object[][]{}, header) { public boolean isCellEditable(int rowIndex, int columnIndex) { return false; } };
+        NonEditableTableModel tblModel = new NonEditableTableModel(new Object[][]{}, header);
         Object[] data = new Object[header.length];
         for(varMahasiswa objMhs : list){
             data[0] = objMhs.getVNIM();
@@ -53,6 +61,17 @@ public class Controller_Mahasiswa {
         form.getTxtAlamat().setText(list.get(row).getVAlamat());
     }
     
+    public void cariData() {
+        if (list != null && !list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getVNIM().equalsIgnoreCase(form.getTxtNIM().getText().trim())) {
+                    isiField(i);
+                    break;
+                }
+            }
+        }
+    }
+
     public void reset(){
         form.getTxtNIM().setText("");
         form.getTxtNama().setText("");
@@ -63,23 +82,23 @@ public class Controller_Mahasiswa {
     
     public void insert(){
         varMahasiswa objMhs = new varMahasiswa();
-        objMhs.setVNIM(form.getTxtNIM().getText());
-        objMhs.setVNama(form.getTxtNama().getText());
-        objMhs.setVAlamat(form.getTxtAlamat().getText());
+        objMhs.setVNIM(form.getTxtNIM().getText().trim());
+        objMhs.setVNama(form.getTxtNama().getText().trim());
+        objMhs.setVAlamat(form.getTxtAlamat().getText().trim());
         model.insert(objMhs);
     }
     
     public void update(){
         varMahasiswa objMhs = new varMahasiswa();
-        objMhs.setVNIM(form.getTxtNIM().getText());
-        objMhs.setVNama(form.getTxtNama().getText());
-        objMhs.setVAlamat(form.getTxtAlamat().getText());
+        objMhs.setVNIM(form.getTxtNIM().getText().trim());
+        objMhs.setVNama(form.getTxtNama().getText().trim());
+        objMhs.setVAlamat(form.getTxtAlamat().getText().trim());
         model.update(objMhs);
     }
     
     public void delete(){
         if(!form.getTxtNama().getText().trim().isEmpty()){
-            String nim = form.getTxtNIM().getText();
+            String nim = form.getTxtNIM().getText().trim();
             model.delete(nim);
         }
         else{
@@ -89,7 +108,7 @@ public class Controller_Mahasiswa {
     
     public void isiTabelCari(){
         list = model.getCari(form.getTxtNIM().getText().trim());
-        DefaultTableModel tblModel = new DefaultTableModel(new Object[][]{},header);
+        NonEditableTableModel tblModel = new NonEditableTableModel(new Object[][]{},header);
         Object[] data = new Object[header.length];
         for(varMahasiswa objMhs : list){
             data[0] = objMhs.getVNIM();

@@ -1,2 +1,0 @@
-Controller.MyTableModelJadwal
-Controller.Controller_Jadwal

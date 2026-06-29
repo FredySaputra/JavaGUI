@@ -1,8 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//NIM       : 2311500140
+//Nama      : Fredy Dwi Saputra
+//No. Absen : 7
 package View;
 
 import Controller.Controller_Mahasiswa;
@@ -15,7 +13,7 @@ import javax.swing.JTextField;
  *
  * @author Mahasiswa
  */
-public class FrmMahasiswa extends javax.swing.JFrame {
+public class FrmMahasiswa extends javax.swing.JFrame implements java.awt.event.ActionListener, java.awt.event.MouseListener, java.awt.event.KeyListener {
     
     Controller.Controller_Mahasiswa controller;
     /**
@@ -23,17 +21,16 @@ public class FrmMahasiswa extends javax.swing.JFrame {
      */
     public FrmMahasiswa() {
         initComponents();
-        /* CUSTOM_BINDINGS_START */
-        if(txtNIM != null) txtNIM.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtNIMActionPerformed(evt); } });
-        if(cmdTambah != null) cmdTambah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdTambahActionPerformed(evt); } });
-        if(txtNama != null) txtNama.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtNamaActionPerformed(evt); } });
-        if(cmdUbah != null) cmdUbah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdUbahActionPerformed(evt); } });
-        if(cmdHapus != null) cmdHapus.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdHapusActionPerformed(evt); } });
-        if(cmdBatal != null) cmdBatal.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdBatalActionPerformed(evt); } });
-        if(tblMahasiswa != null) tblMahasiswa.addMouseListener(new java.awt.event.MouseAdapter() { public void mouseClicked(java.awt.event.MouseEvent evt) { tblMahasiswaMouseClicked(evt); } });
-        if(txtNIM != null) txtNIM.addKeyListener(new java.awt.event.KeyAdapter() { public void keyReleased(java.awt.event.KeyEvent evt) { txtNIMKeyReleased(evt); } });
-        if(txtNIM != null) txtNIM.addKeyListener(new java.awt.event.KeyAdapter() { public void keyPressed(java.awt.event.KeyEvent evt) { txtNIMKeyPressed(evt); } });
-        /* CUSTOM_BINDINGS_END */
+        txtNIM.addActionListener(this);
+        cmdTambah.addActionListener(this);
+        txtNama.addActionListener(this);
+        cmdUbah.addActionListener(this);
+        cmdHapus.addActionListener(this);
+        cmdBatal.addActionListener(this);
+        
+        tblMahasiswa.addMouseListener(this);
+        txtNIM.addKeyListener(this);
+
         setLocationRelativeTo(this);
         controller = new Controller_Mahasiswa(this);
         controller.reset();
@@ -102,57 +99,17 @@ public class FrmMahasiswa extends javax.swing.JFrame {
 
         lblAlamat.setText("Alamat :");
 
-        txtNIM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNIMActionPerformed(evt);
-            }
-        });
-        txtNIM.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtNIMKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtNIMKeyReleased(evt);
-            }
-        });
-
-        txtNama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNamaActionPerformed(evt);
-            }
-        });
-
         txtAlamat.setColumns(20);
         txtAlamat.setRows(5);
         jScrollPane1.setViewportView(txtAlamat);
 
         cmdTambah.setText("Tambah");
-        cmdTambah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdTambahActionPerformed(evt);
-            }
-        });
 
         cmdUbah.setText("Ubah");
-        cmdUbah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdUbahActionPerformed(evt);
-            }
-        });
 
         cmdHapus.setText("Hapus");
-        cmdHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdHapusActionPerformed(evt);
-            }
-        });
 
         cmdBatal.setText("Batal");
-        cmdBatal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdBatalActionPerformed(evt);
-            }
-        });
 
         tblMahasiswa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -165,11 +122,6 @@ public class FrmMahasiswa extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblMahasiswa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblMahasiswaMouseClicked(evt);
-            }
-        });
         jScrollPane3.setViewportView(tblMahasiswa);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -279,10 +231,54 @@ public class FrmMahasiswa extends javax.swing.JFrame {
             }
             else{
                 controller.isiTabelCari();
+                controller.cariData();
                 this.txtNama.requestFocus();
             }
         }
     }//GEN-LAST:event_txtNIMKeyPressed
+
+    @Override
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Object source = evt.getSource();
+        if (source == txtNIM) {
+            txtNIMActionPerformed(evt);
+        } else if (source == cmdTambah) {
+            cmdTambahActionPerformed(evt);
+        } else if (source == txtNama) {
+            txtNamaActionPerformed(evt);
+        } else if (source == cmdUbah) {
+            cmdUbahActionPerformed(evt);
+        } else if (source == cmdHapus) {
+            cmdHapusActionPerformed(evt);
+        } else if (source == cmdBatal) {
+            cmdBatalActionPerformed(evt);
+        }
+    }
+
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        if (evt.getSource() == tblMahasiswa) {
+            tblMahasiswaMouseClicked(evt);
+        }
+    }
+    @Override public void mousePressed(java.awt.event.MouseEvent evt) {}
+    @Override public void mouseReleased(java.awt.event.MouseEvent evt) {}
+    @Override public void mouseEntered(java.awt.event.MouseEvent evt) {}
+    @Override public void mouseExited(java.awt.event.MouseEvent evt) {}
+
+    @Override public void keyTyped(java.awt.event.KeyEvent evt) {}
+    @Override
+    public void keyPressed(java.awt.event.KeyEvent evt) {
+        if (evt.getSource() == txtNIM) {
+            txtNIMKeyPressed(evt);
+        }
+    }
+    @Override
+    public void keyReleased(java.awt.event.KeyEvent evt) {
+        if (evt.getSource() == txtNIM) {
+            txtNIMKeyReleased(evt);
+        }
+    }
 
     /**
      * @param args the command line arguments

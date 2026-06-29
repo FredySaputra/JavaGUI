@@ -1,3 +1,6 @@
+//NIM       : 2311500140
+//Nama      : Fredy Dwi Saputra
+//No. Absen : 7
 package View;
 
 import Controller.Controller_Dosen;
@@ -30,7 +33,7 @@ public class FrmDosen extends javax.swing.JFrame {
     public JTextField getTxtNoHp() { return txtNoHp; }
 
     @SuppressWarnings("unchecked")
-    //GEN-BEGIN:initComponents
+//GEN-BEGIN:initComponents
     private void initComponents() {
         lblNip = new javax.swing.JLabel();
         lblNama = new javax.swing.JLabel();
@@ -134,7 +137,7 @@ public class FrmDosen extends javax.swing.JFrame {
         );
         pack();
     }
-    //GEN-END:initComponents
+//GEN-END:initComponents
 
     private javax.swing.JButton cmdBersih;
     private javax.swing.JButton cmdHapus;

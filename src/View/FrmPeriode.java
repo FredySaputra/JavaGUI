@@ -1,8 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//NIM       : 2311500140
+//Nama      : Fredy Dwi Saputra
+//No. Absen : 7
 package View;
 
 import Controller.Controller_Periode;
@@ -15,7 +13,7 @@ import javax.swing.JTextField;
  *
  * @author Periode
  */
-public class FrmPeriode extends javax.swing.JFrame {
+public class FrmPeriode extends javax.swing.JFrame implements java.awt.event.ActionListener, java.awt.event.MouseListener, java.awt.event.KeyListener {
     
     Controller.Controller_Periode controller;
     /**
@@ -23,17 +21,16 @@ public class FrmPeriode extends javax.swing.JFrame {
      */
     public FrmPeriode() {
         initComponents();
-        /* CUSTOM_BINDINGS_START */
-        if(txtTA != null) txtTA.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtTAActionPerformed(evt); } });
-        if(cmdTambah != null) cmdTambah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdTambahActionPerformed(evt); } });
-        if(cmdUbah != null) cmdUbah.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdUbahActionPerformed(evt); } });
-        if(cmdHapus != null) cmdHapus.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdHapusActionPerformed(evt); } });
-        if(cmdBatal != null) cmdBatal.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { cmdBatalActionPerformed(evt); } });
-        if(txtSemester != null) txtSemester.addActionListener(new java.awt.event.ActionListener() { public void actionPerformed(java.awt.event.ActionEvent evt) { txtSemesterActionPerformed(evt); } });
-        if(tblPeriode != null) tblPeriode.addMouseListener(new java.awt.event.MouseAdapter() { public void mouseClicked(java.awt.event.MouseEvent evt) { tblPeriodeMouseClicked(evt); } });
-        if(txtTA != null) txtTA.addKeyListener(new java.awt.event.KeyAdapter() { public void keyReleased(java.awt.event.KeyEvent evt) { txtTAKeyReleased(evt); } });
-        if(txtTA != null) txtTA.addKeyListener(new java.awt.event.KeyAdapter() { public void keyPressed(java.awt.event.KeyEvent evt) { txtTAKeyPressed(evt); } });
-        /* CUSTOM_BINDINGS_END */
+        txtTA.addActionListener(this);
+        cmdTambah.addActionListener(this);
+        cmdUbah.addActionListener(this);
+        cmdHapus.addActionListener(this);
+        cmdBatal.addActionListener(this);
+        txtSemester.addActionListener(this);
+        
+        tblPeriode.addMouseListener(this);
+        txtTA.addKeyListener(this);
+
         setLocationRelativeTo(this);
         controller = new Controller_Periode(this);
         controller.reset();
@@ -93,53 +90,13 @@ public class FrmPeriode extends javax.swing.JFrame {
 
         lblSemester.setText("Semester             :");
 
-        txtTA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTAActionPerformed(evt);
-            }
-        });
-        txtTA.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtTAKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTAKeyReleased(evt);
-            }
-        });
-
-        txtSemester.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSemesterActionPerformed(evt);
-            }
-        });
-
         cmdTambah.setText("Tambah");
-        cmdTambah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdTambahActionPerformed(evt);
-            }
-        });
 
         cmdUbah.setText("Ubah");
-        cmdUbah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdUbahActionPerformed(evt);
-            }
-        });
 
         cmdHapus.setText("Hapus");
-        cmdHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdHapusActionPerformed(evt);
-            }
-        });
 
         cmdBatal.setText("Batal");
-        cmdBatal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdBatalActionPerformed(evt);
-            }
-        });
 
         tblPeriode.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -152,11 +109,6 @@ public class FrmPeriode extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblPeriode.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblPeriodeMouseClicked(evt);
-            }
-        });
         jScrollPane3.setViewportView(tblPeriode);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,6 +200,7 @@ public class FrmPeriode extends javax.swing.JFrame {
             }
             else{
                 controller.isiTabelCari();
+                controller.cariData();
                 this.txtSemester.requestFocus();
             }
         }
@@ -261,6 +214,49 @@ public class FrmPeriode extends javax.swing.JFrame {
     private void txtSemesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSemesterActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSemesterActionPerformed
+
+    @Override
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Object source = evt.getSource();
+        if (source == txtTA) {
+            txtTAActionPerformed(evt);
+        } else if (source == cmdTambah) {
+            cmdTambahActionPerformed(evt);
+        } else if (source == txtSemester) {
+            txtSemesterActionPerformed(evt);
+        } else if (source == cmdUbah) {
+            cmdUbahActionPerformed(evt);
+        } else if (source == cmdHapus) {
+            cmdHapusActionPerformed(evt);
+        } else if (source == cmdBatal) {
+            cmdBatalActionPerformed(evt);
+        }
+    }
+
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        if (evt.getSource() == tblPeriode) {
+            tblPeriodeMouseClicked(evt);
+        }
+    }
+    @Override public void mousePressed(java.awt.event.MouseEvent evt) {}
+    @Override public void mouseReleased(java.awt.event.MouseEvent evt) {}
+    @Override public void mouseEntered(java.awt.event.MouseEvent evt) {}
+    @Override public void mouseExited(java.awt.event.MouseEvent evt) {}
+
+    @Override public void keyTyped(java.awt.event.KeyEvent evt) {}
+    @Override
+    public void keyPressed(java.awt.event.KeyEvent evt) {
+        if (evt.getSource() == txtTA) {
+            txtTAKeyPressed(evt);
+        }
+    }
+    @Override
+    public void keyReleased(java.awt.event.KeyEvent evt) {
+        if (evt.getSource() == txtTA) {
+            txtTAKeyReleased(evt);
+        }
+    }
 
     /**
      * @param args the command line arguments

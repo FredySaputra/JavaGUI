@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
-absen : 7
- */
+//NIM       : 2311500140
+//Nama      : Fredy Dwi Saputra
+//No. Absen : 7
 package DAO;
 
 import Model.varPeriode;
@@ -36,8 +33,9 @@ public class DAO_Periode implements DAO_Interface<varPeriode> {
     public void insert(varPeriode Object) {
         PreparedStatement st = null;
         try{
-            st = conn.prepareStatement(SelectUntukGetCari);
+            st = conn.prepareStatement("select * from periode where TA=? and Semester=?");
             st.setString(1, Object.getVTA());
+            st.setString(2, Object.getVSemester());
             ResultSet rs = st.executeQuery();
             if(rs.next()){
                 JOptionPane.showMessageDialog(null, "Data sudah pernah disimpan!");
